@@ -13,23 +13,24 @@
      <!--  <div ng-include="'app/tabs/tabs.html'"></div> -->
 
        <div class="tabs leftSectionHolder" ng-controller="TabsController">
-        <div class="tabs-header leftSectionHeaderHolder">
-          <div class="tabs-header-text leftSectionHeaderText">Filters</div>
-        </div>
-        <div class="leftSectionHolderContent">
-         <a ng-class="currentTab === 'all' ? 'tab activeTab': 'tab inactiveTab'" href="#/" ng-click="changeTab('all')">
-           All
-           <div class="active" ng-show="currentTab === 'all'">
+
+          <div class="tabs-header leftSectionHeaderHolder">
+            <div class="tabs-header-text leftSectionHeaderText">Filters</div>
+          </div>
+
+          <div class="tabs-content leftSectionHolderContent">
+             <button ng-class="currentTab === 'all' ? 'tab activeTab': 'tab inactiveTab'" href="#/" ng-click="changeTab('all')"><div class="active" ng-show="currentTab === 'all'">
              <div class="refresh" degrees="angle" rotate ng-click="refresh()"></div>
-           </div>
-         </a>
-         <a ng-class="currentTab === 'personal' ? 'tab activeTab': 'tab inactiveTab'" href="#/personal" ng-click="changeTab('personal')">
-           Personal
-           <div class="active" ng-show="currentTab === 'personal'">
+          </div>All</button>
+             <button ng-class="currentTab === 'personal' ? 'tab activeTab': 'tab inactiveTab'" href="#/personal" ng-click="changeTab('personal')"><div class="active" ng-show="currentTab === 'personal'">
              <div class="refresh" degrees="angle" rotate ng-click="refresh()"></div>
-           </div>
-         </a>
-         </div>
+          </div>Personal</button>
+              <button ng-class="currentTab === 'bookmarks' ? 'tab activeTab': 'tab inactiveTab'" href="#/bookmarks" ng-click="changeTab('bookmarks')"><div class="active" ng-show="currentTab === 'bookmarks'">
+             <div class="refresh" degrees="angle" rotate ng-click="refresh()"></div>
+          </div>Bookmarks</button>
+
+
+          </div>
 
      </div>
 
@@ -43,8 +44,7 @@
 
           <div class="currently-following-right leftSectionHolderContent">
             <div class="following-right-top">
-              <input type="text" ng-model="newFollow" placeholder="username">
-              <button ng-click="follow(newFollow)">Follow</button>
+              <input type="text" ng-model="newFollow" placeholder="follow user"><button ng-click="follow(newFollow)">follow</button>
             </div>
             <div class="following-right-bottom">
               <button class="followed-user" ng-repeat="user in currentlyFollowing" ng-click="unfollow(user);">
@@ -52,8 +52,7 @@
               </button>
             </div>
           </div>
-
-     </div>
+      </div>
 
 
       <!-- <div ng-include="'app/auth/auth.html'"></div> -->
@@ -104,7 +103,6 @@
               </form>
             </div>
           </div>
-          </div>
 
           <div class="loggedOutDiv" ng-show="loggedIn">
             <button ng-click="logout()">logout</button>
@@ -116,7 +114,7 @@
 
    <!--  the ng-view directive is where our templates will be loaded into when navigated to -->
     <div class="feed">
-      <div ng-view></div>
+      <div class="inside-feed" ng-view></div>
     </div>
 
     <script src="lib/angular.js"></script>

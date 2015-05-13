@@ -82,7 +82,7 @@ table {
 /*end*/
 
 select, input, textarea, button {
-   -webkit-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
@@ -143,89 +143,83 @@ a{
 }
 
 .tabs{
-  display: inline-block;
-  width: 100%;
   height: 30%;
   background-color: white;
 }
 
-.tab {
-  display: block;
-  padding-top: 25px;
-  padding-bottom: 30px;
-  height: 50px;
-  padding-left: 93px;
-  text-decoration: none;
-  font-size: 2em;
-  letter-spacing: -.1px;
-  font-weight: bold;
-  position: relative;
-  color: #303030;
-}
-
-.activeTab{
+.tabs-content{
 
 }
 
-.inactiveTab {
-  background: #E8E8E8;
-  opacity: 0.4;
-  -webkit-transition: all 600ms ease-out;
+button.tab {
+   -webkit-transition: all 600ms ease-out;
   -moz-transition: all 600ms ease-out;
   -o-transition: all 600ms ease-out;
   -ms-transition: all 600ms ease-out;
   transition: all 600ms ease-out;
+  width: 100%;
+  height: 33.33333333333%;
+  display:block;
+  text-decoration: none;
+  font-size: 2em;
+  letter-spacing: -.1px;
+  font-weight: bold;
+  color: #303030;
+  background-color: white;
+  border: 0px solid white;
+}
+
+html button.activeTab{
+  background-color: white;
+  text-align: right;
+  border-right: 10px solid #FFA500
+}
+
+button.activeTab:after{
+
+}
+
+
+
+button.inactiveTab {
+  text-align: center;
+  background: #E8E8E8;
+  opacity: 0.4;
+
 }
 .faded:hover{
   opacity: 1;
 }
 
-.tab-header {
+.tabs-header-text{
   color: black;
-  text-align: center;
-  top: 150px;
-  left: 10px;
-  margin: 0;
-  position: absolute;
-  transform: rotate(-90deg);
-  transform-origin: left top 0;
-  font-size: 40px;
-  letter-spacing: -2px;
-  z-index: 200;
 }
 
-
-.currently-following{
+.leftSectionHolder{
   width: 100%;
-  height: 60%;
   margin: 0;
   color: white;
-  background-color: #404040;
   display: inline-block;
   position: relative;
   padding: 1px;
 }
 
-.following-header{
+html .leftSectionHeaderHolder{
   display: inline-block;
   width: auto;
   height: auto;
 }
 
-.following-header-text{
+.leftSectionHeaderText{
   font-weight: bold;
-  color: #FFA500;
   text-align: center;
-  font-size: 40px;
-  letter-spacing: -2px;
-}
-
-html .textRotate90{
+  font-size: 2em;
+  letter-spacing: -.1em;
   -webkit-transform: rotate(-90deg)translate(-100%,0);
   -moz-transform:    rotate(-90deg)translate(-100%,0);
   -ms-transform:     rotate(-90deg)translate(-100%,0);
   -o-transform:      rotate(-90deg)translate(-100%,0);
-  transform:         rotate(-90deg) translate(-100%,0);
+  transform:         rotate(-90deg)translate(-100%,0);
 
   -webkit-transform-origin: left top;
   -moz-transform-origin:    left top;
@@ -234,8 +228,7 @@ html .textRotate90{
   transform-origin:         left top;
 }
 
-.currently-following-right{
-  /*margin-left: -50%;*/
+.leftSectionHolderContent{
   display: inline-block;
   text-align: right;
   width: 90%;
@@ -243,6 +236,24 @@ html .textRotate90{
   position: absolute;
   right: 0;
   top: 0;
+}
+
+
+.currently-following{
+  background-color: #404040;
+  height: 40%;
+}
+
+.following-header{
+
+}
+
+.following-header-text{
+   color: #FFA500;
+}
+
+.currently-following-right{
+
 }
 
 .following-right-top{
@@ -259,14 +270,15 @@ html .following-right-top input {
   display: inline-block;
   border-radius: 0;
   border: 0px solid white;
-  font-size: 1.1em;
-  margin: 0px 0px 0px 0px;
-  padding: 0px 0px 0px 0px;
+  font-size: 1.15em;
+  margin: 1px;
+  padding: 0px 0px 0px .1em;
   background-color: #FFA500;
   color: #404040;
 }
 
 html .following-right-top button {
+  cursor: pointer;
   font-family: helvetica, arial, sans-serif;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -274,23 +286,25 @@ html .following-right-top button {
   display: inline-block;
   border-radius: 0;
   border: 0px solid white;
-  font-size: 1.1em;
-  margin: 0px 0px 0px 0px;
-  padding: 0px 0px 0px 0px;
+  font-size: 1.15em;
+  margin: 1px;
+  padding: 0px .24em 0px .24em;
   background-color: #FFA500;
   color: #404040;
 }
 
-.following-right-bottom{
-  display: inline-block;
+html .following-right-bottom{
+  display: block;
   text-align: right;
   width:100%;
   height: 100%;
+  padding-bottom: 1.3em;
+  overflow-y: scroll;
 }
 
 .following-right-bottom button {
   border-radius: 0;
-  margin: 0px;
+  margin: 1px;
   background-color: #FFA500;
   color: #404040;
   border: 0px solid white;
@@ -307,26 +321,38 @@ html .following-right-top button {
   color: #FFA500;
 }
 
+html .followed-user{
+  /*border: 2px solid white;*/
+
+
+}
 .followed-user:hover {
   background: lightgrey;
 }
+.followed-user:after{
+  content: 'x';
+}
 
-.auth-header {
-  width: 40px;
+.auth-header-text {
   color: #404040;
-  text-align: center;
-  font-size: 40px;
-  letter-spacing: -2px;
-  text-align: center;
 }
 
 .auth-container {
-  position: absolute;
-  bottom: 0px;
-  left: 0px;
-  padding: 2px;
-  width: 100%;
+  border-top: 2px solid #404040;
   background-color: #FFA500;
+  height: 30%;
+}
+
+.loggedInDiv{
+   display: inline-block;
+  width: auto;
+  height: auto;
+}
+
+.loggedOutDiv{
+   display: inline-block;
+  width: auto;
+  height: auto;
 }
 
 
@@ -341,10 +367,22 @@ html .following-right-top button {
 }
 
 .feed {
-  float: left;
-  margin-left: 545px;
-  margin-left: 580px;
-  margin-top: 30px;
+  display: inline-block;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 60%;
+  height: 100%;
+ /* margin-left: 545px;
+  margin-left: 580px;*/
+  border-top: 2px solid black;
+}
+
+.inside-feed{
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
 }
 
 .story{
@@ -431,41 +469,34 @@ html .following-right-top button {
 }
 .more-button:hover {
   opacity: 1;
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 .new-follow {
-  margin-bottom: 10px;
+
 }
 
 #signin {
-  margin-bottom: 25px;
+
 }
 
 .auth-info {
-  font-size: 15px;
-  margin: 0;
-  margin-bottom: 25px;
 }
 
 .logged-header {
-  margin-top: 0;
-  margin-bottom: 15px;
-  font-size: 40px;
-  letter-spacing: -2px;
   color: #404040;
 }
 
 .refresh {
-  position: absolute;
-  left: -75px;
-  top: -18px;
+  position: fixed;
+  z-index: 999;
+  right: 0;
+  top: 0;
   width: 40px;
   height: 40px;
   background: url(http://findicons.com/files/icons/2579/iphone_icons/40/reload.png);
   background-repeat: no-repeat;
   background-size: contain;
-  border-radius: 50%;
   opacity: 0.15;
 
   -webkit-transition: all 600ms ease-out;

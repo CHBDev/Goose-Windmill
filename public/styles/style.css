@@ -82,7 +82,7 @@ table {
 /*end*/
 
 select, input, textarea, button {
-   -webkit-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
@@ -131,7 +131,7 @@ a{
 /*LEFT SIDE*/
 
 .left-container {
-  width: 40%;
+  width: 30%;
   max-width: 400px;
   min-width: 200px;
   height: 100%;
@@ -147,57 +147,54 @@ a{
   background-color: white;
 }
 
-.tab {
-  display: block;
-  padding-top: 25px;
-  padding-bottom: 30px;
-  height: 50px;
-  padding-left: 93px;
-  text-decoration: none;
-  font-size: 2em;
-  letter-spacing: -.1px;
-  font-weight: bold;
-  position: relative;
-  color: #303030;
-}
-
-.activeTab{
+.tabs-content{
 
 }
 
-.inactiveTab {
-  background: #E8E8E8;
-  opacity: 0.4;
-  -webkit-transition: all 600ms ease-out;
+button.tab {
+   -webkit-transition: all 600ms ease-out;
   -moz-transition: all 600ms ease-out;
   -o-transition: all 600ms ease-out;
   -ms-transition: all 600ms ease-out;
   transition: all 600ms ease-out;
+  width: 100%;
+  height: 33.33333333333%;
+  display:block;
+  text-decoration: none;
+  font-size: 2em;
+  letter-spacing: -.1px;
+  font-weight: bold;
+  color: #303030;
+  background-color: white;
+  border: 0px solid white;
+  position: relative;
+}
+
+html button.activeTab{
+  background-color: white;
+  text-align: right;
+  border-right: 10px solid #FFA500
+}
+
+button.activeTab:after{
+
+}
+
+
+
+button.inactiveTab {
+  text-align: center;
+  background: #E8E8E8;
+  opacity: 0.4;
+
 }
 .faded:hover{
   opacity: 1;
 }
 
-.tab-header {
-  color: black;
-  text-align: center;
-  top: 150px;
-  left: 10px;
-  margin: 0;
-  position: absolute;
-  transform: rotate(-90deg);
-  transform-origin: left top 0;
-  font-size: 40px;
-  letter-spacing: -2px;
-  z-index: 200;
-}
-
 .tabs-header-text{
   color: black;
 }
-
-
-
 
 .leftSectionHolder{
   width: 100%;
@@ -223,7 +220,7 @@ html .leftSectionHeaderHolder{
   -moz-transform:    rotate(-90deg)translate(-100%,0);
   -ms-transform:     rotate(-90deg)translate(-100%,0);
   -o-transform:      rotate(-90deg)translate(-100%,0);
-  transform:         rotate(-90deg) translate(-100%,0);
+  transform:         rotate(-90deg)translate(-100%,0);
 
   -webkit-transform-origin: left top;
   -moz-transform-origin:    left top;
@@ -274,14 +271,15 @@ html .following-right-top input {
   display: inline-block;
   border-radius: 0;
   border: 0px solid white;
-  font-size: 1.1em;
-  margin: 0px 0px 0px 0px;
-  padding: 0px 0px 0px 0px;
+  font-size: 1.15em;
+  margin: 1px;
+  padding: 0px 0px 0px .1em;
   background-color: #FFA500;
   color: #404040;
 }
 
 html .following-right-top button {
+  cursor: pointer;
   font-family: helvetica, arial, sans-serif;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -289,23 +287,25 @@ html .following-right-top button {
   display: inline-block;
   border-radius: 0;
   border: 0px solid white;
-  font-size: 1.1em;
-  margin: 0px 0px 0px 0px;
-  padding: 0px 0px 0px 0px;
+  font-size: 1.15em;
+  margin: 1px;
+  padding: 0px .24em 0px .24em;
   background-color: #FFA500;
   color: #404040;
 }
 
-.following-right-bottom{
-  display: inline-block;
+html .following-right-bottom{
+  display: block;
   text-align: right;
   width:100%;
   height: 100%;
+  padding-bottom: 1.3em;
+  overflow-y: scroll;
 }
 
 .following-right-bottom button {
   border-radius: 0;
-  margin: 0px;
+  margin: 1px;
   background-color: #FFA500;
   color: #404040;
   border: 0px solid white;
@@ -323,7 +323,9 @@ html .following-right-top button {
 }
 
 html .followed-user{
-  border-right: 10px solid red;
+  /*border: 2px solid white;*/
+
+
 }
 .followed-user:hover {
   background: lightgrey;
@@ -337,6 +339,7 @@ html .followed-user{
 }
 
 .auth-container {
+  border-top: 2px solid #404040;
   background-color: #FFA500;
   height: 30%;
 }
@@ -365,15 +368,53 @@ html .followed-user{
 }
 
 .feed {
-  float: left;
-  margin-left: 545px;
-  margin-left: 580px;
-  margin-top: 30px;
+  display: inline-block;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 70%;
+  height: 100%;
+ /* margin-left: 545px;
+  margin-left: 580px;*/
+  border-top: 2px solid black;
+  overflow-x: visible;
+}
+
+.inside-feed{
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  overflow-x: visible;
+  overflow-x: scroll;
+}
+
+.inside-feed button{
+  border: 0px solid white;
+
+}
+
+.story-whole{
+  display: inline-block;
+  width: auto;
+}
+
+.story-whole-left{
+  display: inline-block;
+  width: 132px;
+  height: 100%;
+}
+
+.story-whole-right{
+  display: inline-block;
+  min-width: 768px;
 }
 
 .story{
   margin-bottom: 10px;
   position: relative;
+  overflow-x: visible;
 }
 
 .comment {
@@ -407,18 +448,16 @@ html .followed-user{
 }
 
 .points-bar {
+  display: inline-block;
   background: #D8D8D8;
   /*background: black;*/
   height: 8px;
-  position: absolute;
+  z-index: 999;
   box-sizing: border-box;
-  right: 100%;
-  margin-right: 10px;
-  top: 10px;
   max-width: 133px;
 }
 
-.active {
+/*.active {
   width: 0;
   height: 0;
   border-top: 10px solid transparent;
@@ -428,7 +467,7 @@ html .followed-user{
   right: -5px;
   position: absolute;
   top: 38px;
-}
+}*/
 
 .source-url {
   opacity: 0.4;
@@ -455,41 +494,51 @@ html .followed-user{
 }
 .more-button:hover {
   opacity: 1;
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 .new-follow {
-  margin-bottom: 10px;
+
 }
 
 #signin {
-  margin-bottom: 25px;
+
 }
 
 .auth-info {
-  font-size: 15px;
-  margin: 0;
-  margin-bottom: 25px;
 }
 
 .logged-header {
-  margin-top: 0;
-  margin-bottom: 15px;
-  font-size: 40px;
-  letter-spacing: -2px;
   color: #404040;
+}
+
+
+
+.story-page{
+  position: relative;
+  overflow-x: visible;
+}
+
+.story-holder{
+  position: relative;
+  overflow-x: visible;
+}
+
+.story-holder a:hover {
+  text-decoration: underline;
 }
 
 .refresh {
   position: absolute;
-  left: -75px;
-  top: -18px;
+  display: inline-block;
+  z-index: 999;
+  left: 0;
+
   width: 40px;
   height: 40px;
   background: url(http://findicons.com/files/icons/2579/iphone_icons/40/reload.png);
   background-repeat: no-repeat;
   background-size: contain;
-  border-radius: 50%;
   opacity: 0.15;
 
   -webkit-transition: all 600ms ease-out;
@@ -509,8 +558,4 @@ html .followed-user{
   -ms-transform:      scale(.94,.94);
   -o-transform:       scale(.94,.94);
   transform:          scale(.94,.94);
-}
-
-.story-holder a:hover {
-  text-decoration: underline;
 }
