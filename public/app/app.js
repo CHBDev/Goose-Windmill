@@ -27,6 +27,7 @@ angular.module('hack', [
 
 .filter('fromNow', function(){
   return function(date){
+    var foo = 3;
     return humanized_time_span(new Date(date));
   }
 })

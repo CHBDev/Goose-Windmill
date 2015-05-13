@@ -1,12 +1,12 @@
 module.exports = function(grunt) {
 
   grunt.initConfig({
-   pkg: grunt.file.readJSON('package.json'),
-     concat: {
+    pkg: grunt.file.readJSON('package.json'),
+    concat: {
       dist: {
         files: {
           'public/dist/production.js': 
-             ['public/app/services/**.js',
+            ['public/app/services/**.js',
               'public/app/auth/auth.js',
               'public/app/currentlyFollowing/currentlyFollowing.js',
               'public/app/personal/personal.js',
@@ -14,13 +14,28 @@ module.exports = function(grunt) {
               'public/app/topStories/topStories.js',
               'public/app/app.js'],
           'public/dist/production.css': ['public/styles/*.css']
-       },
-     }
-       },
+        },
+      }
+    },
 
     nodemon: {
       dev: {
         script: 'index.js'
+      }
+    },
+
+    karma: {
+      options: {
+        // point all tasks to karma config file
+        configFile: './karma.conf.js'
+      },
+      unit: {
+        // run tests once instead of continuously
+        singleRun: true
+      },
+      continuous: {
+        // keep karma running in the background
+        background: true
       }
     },
 
@@ -81,6 +96,11 @@ module.exports = function(grunt) {
       css: {
         files: 'public/**/*.css',
         tasks: ['cssmin']
+      },
+      karma: {
+        // run these tasks when these files change
+        files: ['public/app/**/*.js', 'test/**/*.js'],
+        tasks: ['karma:continuous:run'] // note the :run flag
       }
     },
 
@@ -125,6 +145,9 @@ module.exports = function(grunt) {
    grunt.loadNpmTasks('grunt-run');
    grunt.loadNpmTasks('grunt-services');
    grunt.loadNpmTasks('grunt-open');
+   grunt.loadNpmTasks('grunt-karma');
+   grunt.loadNpmTasks('karma-chrome-launcher');
+   
 
    //To run this function, call the task gitFunctions and pass in the name of the branch that 
    // will be pushed up to github
@@ -160,6 +183,9 @@ module.exports = function(grunt) {
      'start',
      'server',
    ]);
+
+   //call this task to run the test suite
+   grunt.registerTask('test', ['karma:continuous:start', 'watch:karma']);
 
    //call this task before something is pushed to github
    grunt.registerTask('build', [
