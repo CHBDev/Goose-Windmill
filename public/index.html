@@ -64,9 +64,8 @@
           </div>
 
 
-          <div class="leftSectionHolderContent">
+          <div class="auth-content leftSectionHolderContent">
             <div class="loggedInDiv" ng-show="!loggedIn">
-            <p class="auth-info">Sign up to save your followers</p>
             <div id='signin'>
               <form name="signinForm" ng-submit='signin()'>
                 <div>
@@ -88,7 +87,7 @@
 
             <div id='signup'>
               <form name="signupForm" ng-submit='signup()'>
-                <input type='text'ng-model='newUser.username' placeholder="username" required><br>
+                <input type='text'ng-model='newUser.username' placeholder="username" required>
                 <input
                      ng-model='newUser.password'
                      type="password"
@@ -102,6 +101,7 @@
                 <button>create account</button>
               </form>
             </div>
+            <p class="auth-info">Sign in to save your followers</p>
           </div>
 
           <div class="loggedOutDiv" ng-show="loggedIn">

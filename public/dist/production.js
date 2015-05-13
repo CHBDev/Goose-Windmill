@@ -308,10 +308,7 @@ angular.module('hack.tabs', [])
   $scope.angle = 360;
 
   $scope.changeTab = function(newTab){
-    console.log("YAY");
-    console.log("STUFF", $window.location);
     $scope.currentTab = newTab;
-
     $location.path(newTab );
   };
 
