@@ -296,7 +296,7 @@ angular.module('hack.personal', [])
 
 angular.module('hack.tabs', [])
 
-.controller('TabsController', ["$scope", "$window", "Links", "Followers", function ($scope, $window, Links, Followers) {
+.controller('TabsController', ["$scope", "$location", "$window", "Links", "Followers", function ($scope, $location, $window, Links, Followers) {
   // If a user refreshes when the location is '/personal',
   // it will stay on '/personal'.
   var hash = $window.location.hash.split('/')[1];
@@ -308,11 +308,14 @@ angular.module('hack.tabs', [])
   $scope.angle = 360;
 
   $scope.changeTab = function(newTab){
+    console.log("YAY");
+    console.log("STUFF", $window.location);
     $scope.currentTab = newTab;
+
+    $location.path(newTab );
   };
 
   $scope.refresh = function(){
-    console.log('hereeeee');
     Links.getTopStories();
     Links.getPersonalStories(Followers.following);
     $scope.angle += 360;
