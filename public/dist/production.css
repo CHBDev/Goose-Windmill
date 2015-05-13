@@ -108,6 +108,7 @@ body{
   /*background: #F8F8F8;*/
   height: 100%;
   width: 100%;
+  overflow: hidden;
 }
 
 html {
@@ -131,7 +132,7 @@ a{
 /*LEFT SIDE*/
 
 .left-container {
-  width: 40%;
+  width: 30%;
   max-width: 400px;
   min-width: 200px;
   height: 100%;
@@ -167,6 +168,7 @@ button.tab {
   color: #303030;
   background-color: white;
   border: 0px solid white;
+  position: relative;
 }
 
 html button.activeTab{
@@ -371,23 +373,50 @@ html .followed-user{
   position: fixed;
   top: 0;
   right: 0;
-  width: 60%;
+  width: 70%;
   height: 100%;
  /* margin-left: 545px;
   margin-left: 580px;*/
   border-top: 2px solid black;
+  overflow-x: visible;
 }
 
 .inside-feed{
   display: inline-block;
+  position: relative;
   width: 100%;
   height: 100%;
   overflow-y: scroll;
+  overflow-x hidden;
+}
+
+.inside-feed button{
+  border: 0px solid white;
+  overflow-x hidden;
+
+}
+
+.story-whole{
+  display: inline-block;
+  width: 100%;
+}
+
+.story-whole-left{
+  display: inline-block;
+  width: 132px;
+  height: 100%;
+  /*text-align: right;*/
+}
+
+.story-whole-right{
+  display: inline-block;
+  min-width: 768px;
 }
 
 .story{
   margin-bottom: 10px;
   position: relative;
+  overflow-x: visible;
 }
 
 .comment {
@@ -421,18 +450,16 @@ html .followed-user{
 }
 
 .points-bar {
+  display: inline-block;
   background: #D8D8D8;
   /*background: black;*/
-  height: 8px;
-  position: absolute;
+  height: 1em;
   box-sizing: border-box;
-  right: 100%;
-  margin-right: 10px;
-  top: 10px;
   max-width: 133px;
+  margin-right: .2em;
 }
 
-.active {
+/*.active {
   width: 0;
   height: 0;
   border-top: 10px solid transparent;
@@ -442,7 +469,7 @@ html .followed-user{
   right: -5px;
   position: absolute;
   top: 38px;
-}
+}*/
 
 .source-url {
   opacity: 0.4;
@@ -487,11 +514,28 @@ html .followed-user{
   color: #404040;
 }
 
+
+
+.story-page{
+  position: relative;
+  overflow: hidden;
+}
+
+.story-holder{
+  position: relative;
+  overflow-x: visible;
+}
+
+.story-holder a:hover {
+  text-decoration: underline;
+}
+
 .refresh {
-  position: fixed;
+  position: absolute;
+  display: inline-block;
   z-index: 999;
-  right: 0;
-  top: 0;
+  left: 0;
+
   width: 40px;
   height: 40px;
   background: url(http://findicons.com/files/icons/2579/iphone_icons/40/reload.png);
@@ -516,8 +560,4 @@ html .followed-user{
   -ms-transform:      scale(.94,.94);
   -o-transform:       scale(.94,.94);
   transform:          scale(.94,.94);
-}
-
-.story-holder a:hover {
-  text-decoration: underline;
 }
