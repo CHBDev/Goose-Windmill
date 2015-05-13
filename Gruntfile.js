@@ -10,6 +10,7 @@ module.exports = function(grunt) {
               'public/app/auth/auth.js',
               'public/app/currentlyFollowing/currentlyFollowing.js',
               'public/app/personal/personal.js',
+              'public/app/bookmarks/bookmarks.js',
               'public/app/tabs/tabs.js',
               'public/app/topStories/topStories.js',
               'public/app/app.js'],

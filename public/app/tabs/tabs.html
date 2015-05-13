@@ -11,4 +11,10 @@
       <div class="refresh" degrees="angle" rotate ng-click="refreshs()"></div>
     </div>
   </a>
+  <a ng-class="currentTab === 'bookmarks' ? 'tab': 'tab faded'" href="#/bookmarks" ng-click="changeTab('bookmarks')">
+    Bookmarks
+    <div class="active" ng-show="currentTab === 'bookmarks'">
+      <div class="refresh" degrees="angle" rotate ng-click="refreshs()"></div>
+    </div>
+  </a>
 </div>

@@ -41,6 +41,106 @@ angular.module('hack.authService', [])
 }]);
 // HOW OUR FOLLOWING SYSTEM WORKS:
 // We want users to be able to follow people before they even
+// log in, because who actually has time to decide on a story/password?
+
+// So, we do this by saving the users that they follow into localStorage.
+// On signup, we'll send the users string in localStorage to our server
+// which wil save them to a database.
+
+angular.module('hack.bookmarkService', [])
+
+.factory('Bookmarks',  ["$http", "$window", function($http, $window) {
+  var bookmarks = [];
+
+  var updateBookmarks = function(){
+   var user = $window.localStorage.getItem('com.hack');
+
+    if(!!user){
+      var data = {
+        username: user,
+        bookmarks: localStorageBookmarks()
+      };
+
+      $http({
+        method: 'POST',
+        //TODO: create server route for bookmarks
+        url: '/api/bookmarks/updateBookmarks',
+        data: data
+      });
+    }
+  };
+
+  //to add bookmark:
+  //add storyID to array on User object
+  //check bookmark database and upsert object into bookmark database
+
+  var localStorageBookmarks = function(){
+    return $window.localStorage.getItem('hfBookmarks');
+  };
+
+  var localToArr = function(){
+    if(!localStorageBookmarks()){
+      // If the person is a new visitor, set pg and sama as the default
+      // people to follow. Kinda like Tom on MySpace. Except less creepy.
+      $window.localStorage.setItem('hfBookmarks', '');
+    }
+    var bms = localStorageBookmarks().split(',');
+
+    bookmarks.splice(0, bookmarks.length);
+    bookmarks.push.apply(bookmarks, bms);
+  };
+
+  var addBookmark = function(story){
+    var story = {
+      url: story.url,
+      title: story.title,
+      author: story.author,
+      created_at: story.created_at
+    };
+    story = JSON.stringify(story);
+    console.log('it exisits!');
+    var localBookmarks = localStorageBookmarks();
+
+    if (!localBookmarks.includes(story) && bookmarks.indexOf(story) === -1) {
+      localBookmarks += ',' + story
+      $window.localStorage.setItem('hfBookmarks', localBookmarks);
+      bookmarks.push(story);
+    }
+
+    // makes call to database to mirror our changes
+     updateBookmarks();
+  };
+
+  var removeBookmark = function(story){
+    var localBookmarks = localStorageBookmarks();
+
+    if (localBookmarks.includes(story) && bookmarks.indexOf(story) > -1) {
+      following.splice(bookmarks.indexOf(story), 1);
+
+      localBookmarks = localBookmarks.split(',');
+      localBookmarks.splice(localBookmarks.indexOf(story), 1).join(',');
+      $window.localStorage.setItem('hfBookmarks', localBookmarks);
+    }
+
+    // makes call to database to mirror our changes
+    updateBookmarks();
+  };
+
+  var init = function(){
+    localToArr();
+  };
+
+  init();
+
+  return {
+    addBookmark: addBookmark,
+    removeBookmark: removeBookmark,
+    updateBookmarks: updateBookmarks
+  }
+}]);
+
+// HOW OUR FOLLOWING SYSTEM WORKS:
+// We want users to be able to follow people before they even
 // log in, because who actually has time to decide on a username/password?
 
 // So, we do this by saving the users that they follow into localStorage.
@@ -117,7 +217,9 @@ angular.module('hack.followService', [])
 
     following.splice(0, following.length);
     following.push.apply(following, users);
-  }
+  };
+
+  
 
   var init = function(){
     localToArr();
@@ -138,6 +240,7 @@ angular.module('hack.linkService', [])
 .factory('Links', ["$http", "$interval", "Followers", function($http, $interval, Followers) {
   var personalStories = [];
   var topStories = [];
+  //var bookmarkStories = [];
 
   var getTopStories = function() {
     var url = '/api/cache/topStories'
@@ -183,6 +286,31 @@ angular.module('hack.linkService', [])
     });
   };
 
+ /* var getBookmarkStories = function(username){
+    var query = //MongoDB Query
+
+    return $http({
+      method: 'GET',
+      url: '/api/bookmarks/Bookmarks',
+      data: username.userID
+    })
+    .then(function(resp) {
+      angular.forEach(resp.data.hits, function(item){
+        // HN Comments don't have a title. So flag them as a comment.
+        // This will come in handy when we decide how to render each item.
+        if(item.title === null){
+          item.isComment = true;
+        }
+      });
+
+      // Very important to not point personalStories to a new array.
+      // Instead, clear out the array, then push all the new
+      // datum in place. There are pointers pointing to this array.
+      bookmarkStories.splice(0, bookmarkStories.length);
+      bookmarkStories.push.apply(bookmarkStories, resp.data.hits);
+    });
+  };*/
+
   var arrToCSV = function(arr){
     var holder = [];
 
@@ -209,6 +337,8 @@ angular.module('hack.linkService', [])
     getPersonalStories: getPersonalStories,
     personalStories: personalStories,
     topStories: topStories
+    // getBookmarkStories: getBookmarkStories,
+    // bookmarkStories: bookmarkStories
   };
 }]);
 
@@ -216,8 +346,8 @@ angular.module('hack.linkService', [])
 
 angular.module('hack.auth', [])
 
-.controller('AuthController', ["$scope", "$window", "$location", "Auth", "Followers", 
-  function ($scope, $window, $location, Auth, Followers) {
+.controller('AuthController', ["$scope", "$window", "$location", "Auth", "Followers", "Bookmarks",
+  function ($scope, $window, $location, Auth, Followers, Bookmarks) {
   
   $scope.user = {};
   $scope.newUser = {};
@@ -225,11 +355,13 @@ angular.module('hack.auth', [])
 
   $scope.signin = function () {
     Auth.signin($scope.user)
-      .then(function (followers) {
+      .then(function (followers, bookmarks) {
         $window.localStorage.setItem('com.hack', $scope.user.username);
-        $window.localStorage.setItem('hfUsers', followers)
+        $window.localStorage.setItem('hfBookmarks', bookmarks);
+        $window.localStorage.setItem('hfUsers', followers);
 
         Followers.localToArr();
+        Bookmarks.localToArr();
 
         $scope.loggedIn = true;
         $scope.user = {};
@@ -294,6 +426,25 @@ angular.module('hack.personal', [])
   init();
 }]);
 
+angular.module('hack.bookmarks', [])
+
+.controller('BookmarksController', ["$scope", "$window", "Links", "Followers", function ($scope, $window, Links, Followers) {
+  // $scope.stories = Links.personalStories;
+  // $scope.users = Followers.following;
+  // $scope.perPage = 30;
+  // $scope.index = $scope.perPage;
+
+  // var init = function(){
+  //   fetchUsers();
+  // };
+  
+  // var fetchUsers = function(){
+  //   Links.getBookmarkStories($scope.users);
+  // };
+  
+  // init();
+}]);
+
 angular.module('hack.tabs', [])
 
 .controller('TabsController', ["$scope", "$window", "Links", "Followers", function ($scope, $window, Links, Followers) {
@@ -321,7 +472,7 @@ angular.module('hack.tabs', [])
 
 angular.module('hack.topStories', [])
 
-.controller('TopStoriesController', ["$scope", "$window", "Links", "Followers", function ($scope, $window, Links, Followers) {
+.controller('TopStoriesController', ["$scope", "$window", "Links", "Followers", "Bookmarks", function ($scope, $window, Links, Followers, Bookmarks) {
   angular.extend($scope, Links);
   $scope.stories = Links.topStories;
   $scope.perPage = 30;
@@ -337,6 +488,11 @@ angular.module('hack.topStories', [])
     Followers.addFollower(username);
   };
 
+  $scope.addBookmark = function(story) {
+    console.log(story);
+    Bookmarks.addBookmark(story);
+  };
+
   $scope.getData();
 }]);
 
@@ -344,6 +500,8 @@ angular.module('hack.topStories', [])
 angular.module('hack', [
   'hack.topStories',
   'hack.personal',
+  'hack.bookmarks',
+  'hack.bookmarkService',
   'hack.currentlyFollowing',
   'hack.linkService',
   'hack.authService',
@@ -362,6 +520,10 @@ angular.module('hack', [
     .when('/personal', {
       templateUrl: 'app/personal/personal.html',
       controller: 'PersonalController'
+    })
+    .when('/bookmarks', {
+      templateUrl: 'app/bookmarks/bookmarks.html',
+      controller: 'BookmarksController'
     })
     .otherwise({
       redirectTo: '/'

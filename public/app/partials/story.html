@@ -7,6 +7,7 @@
 </a>
 <span class="source-url">{{story.url.split('/')[2]}}</span>
 <div class="bottom-row">
+  <img height="15px" style="vertical-align:text-bottom" src ="/bookmark.png" ng-click="addBookmark(story)">
   <span>{{story.points}} points</span> | 
   <button ng-show="currentlyFollowing.indexOf(story.author) === -1" ng-click="addUser(story.author)">Follow</button>
   <a href="https://news.ycombinator.com/user?id={{story.author}}">{{ story.author}}</a> |

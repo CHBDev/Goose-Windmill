@@ -1,6 +1,8 @@
 angular.module('hack', [
   'hack.topStories',
   'hack.personal',
+  'hack.bookmarks',
+  'hack.bookmarkService',
   'hack.currentlyFollowing',
   'hack.linkService',
   'hack.authService',
@@ -19,6 +21,10 @@ angular.module('hack', [
     .when('/personal', {
       templateUrl: 'app/personal/personal.html',
       controller: 'PersonalController'
+    })
+    .when('/bookmarks', {
+      templateUrl: 'app/bookmarks/bookmarks.html',
+      controller: 'BookmarksController'
     })
     .otherwise({
       redirectTo: '/'

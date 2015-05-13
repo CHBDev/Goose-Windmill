@@ -76,7 +76,9 @@ angular.module('hack.followService', [])
 
     following.splice(0, following.length);
     following.push.apply(following, users);
-  }
+  };
+
+  
 
   var init = function(){
     localToArr();

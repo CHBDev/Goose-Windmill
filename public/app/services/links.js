@@ -3,6 +3,7 @@ angular.module('hack.linkService', [])
 .factory('Links', function($http, $interval, Followers) {
   var personalStories = [];
   var topStories = [];
+  //var bookmarkStories = [];
 
   var getTopStories = function() {
     var url = '/api/cache/topStories'
@@ -48,6 +49,31 @@ angular.module('hack.linkService', [])
     });
   };
 
+ /* var getBookmarkStories = function(username){
+    var query = //MongoDB Query
+
+    return $http({
+      method: 'GET',
+      url: '/api/bookmarks/Bookmarks',
+      data: username.userID
+    })
+    .then(function(resp) {
+      angular.forEach(resp.data.hits, function(item){
+        // HN Comments don't have a title. So flag them as a comment.
+        // This will come in handy when we decide how to render each item.
+        if(item.title === null){
+          item.isComment = true;
+        }
+      });
+
+      // Very important to not point personalStories to a new array.
+      // Instead, clear out the array, then push all the new
+      // datum in place. There are pointers pointing to this array.
+      bookmarkStories.splice(0, bookmarkStories.length);
+      bookmarkStories.push.apply(bookmarkStories, resp.data.hits);
+    });
+  };*/
+
   var arrToCSV = function(arr){
     var holder = [];
 
@@ -74,6 +100,8 @@ angular.module('hack.linkService', [])
     getPersonalStories: getPersonalStories,
     personalStories: personalStories,
     topStories: topStories
+    // getBookmarkStories: getBookmarkStories,
+    // bookmarkStories: bookmarkStories
   };
 });
 

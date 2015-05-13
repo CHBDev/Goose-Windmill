@@ -1,7 +1,7 @@
 angular.module('hack.auth', [])
 
-.controller('AuthController', ["$scope", "$window", "$location", "Auth", "Followers", 
-  function ($scope, $window, $location, Auth, Followers) {
+.controller('AuthController', ["$scope", "$window", "$location", "Auth", "Followers", "Bookmarks",
+  function ($scope, $window, $location, Auth, Followers, Bookmarks) {
   
   $scope.user = {};
   $scope.newUser = {};
@@ -9,11 +9,13 @@ angular.module('hack.auth', [])
 
   $scope.signin = function () {
     Auth.signin($scope.user)
-      .then(function (followers) {
+      .then(function (followers, bookmarks) {
         $window.localStorage.setItem('com.hack', $scope.user.username);
-        $window.localStorage.setItem('hfUsers', followers)
+        $window.localStorage.setItem('hfBookmarks', bookmarks);
+        $window.localStorage.setItem('hfUsers', followers);
 
         Followers.localToArr();
+        Bookmarks.localToArr();
 
         $scope.loggedIn = true;
         $scope.user = {};
