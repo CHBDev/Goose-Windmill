@@ -3,21 +3,118 @@
   <head>
     <meta charset="utf-8" />
     <title>Hack Feed</title>
-    <link rel="stylesheet" type="text/css" href="dist/production.css" />
+    <link rel="stylesheet" type="text/css" href="styles/style.css" />
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:600' rel='stylesheet' type='text/css'>
   </head>
   <body>
 
     <!-- things on the left of screen -->
     <div class="left-container">
-      <div ng-include="'app/tabs/tabs.html'"></div>
-      <div ng-include="'app/currentlyFollowing/currentlyFollowing.html'"></div>
-      <div ng-include="'app/auth/auth.html'"></div>
+     <!--  <div ng-include="'app/tabs/tabs.html'"></div> -->
+
+       <div class="tabs leftSectionHolder" ng-controller="TabsController">
+
+          <div class="tabs-header leftSectionHeaderHolder">
+            <div class="tabs-header-text leftSectionHeaderText">Filters</div>
+          </div>
+
+          <div class="tabs-content leftSectionHolderContent">
+             <button ng-class="currentTab === 'all' ? 'tab activeTab': 'tab inactiveTab'" href="#/" ng-click="changeTab('all')"><div class="active" ng-show="currentTab === 'all'">
+             <div class="refresh" degrees="angle" rotate ng-click="refresh()"></div>
+          </div>All</button>
+             <button ng-class="currentTab === 'personal' ? 'tab activeTab': 'tab inactiveTab'" href="#/personal" ng-click="changeTab('personal')"><div class="active" ng-show="currentTab === 'personal'">
+             <div class="refresh" degrees="angle" rotate ng-click="refresh()"></div>
+          </div>Personal</button>
+              <button ng-class="currentTab === 'bookmarks' ? 'tab activeTab': 'tab inactiveTab'" href="#/bookmarks" ng-click="changeTab('bookmarks')"><div class="active" ng-show="currentTab === 'bookmarks'">
+             <div class="refresh" degrees="angle" rotate ng-click="refresh()"></div>
+          </div>Bookmarks</button>
+
+
+          </div>
+
+     </div>
+
+
+      <!-- <div ng-include="'app/currentlyFollowing/currentlyFollowing.html'"></div> -->
+
+      <div class="currently-following leftSectionHolder" ng-controller="CurrentlyFollowingController">
+        <div class="following-header leftSectionHeaderHolder">
+          <div class="following-header-text leftSectionHeaderText">Following</div>
+        </div>
+
+          <div class="currently-following-right leftSectionHolderContent">
+            <div class="following-right-top">
+              <input type="text" ng-model="newFollow" placeholder="follow user"><button ng-click="follow(newFollow)">follow</button>
+            </div>
+            <div class="following-right-bottom">
+              <button class="followed-user" ng-repeat="user in currentlyFollowing" ng-click="unfollow(user);">
+                {{user}}
+              </button>
+            </div>
+          </div>
+      </div>
+
+
+      <!-- <div ng-include="'app/auth/auth.html'"></div> -->
+
+      <div class="auth-container leftSectionHolder" ng-controller="AuthController">
+
+          <div class="auth-header leftSectionHeaderHolder">
+            <div class="auth-header-text leftSectionHeaderText">HN Feed</div>
+          </div>
+
+
+          <div class="auth-content leftSectionHolderContent">
+            <div class="loggedInDiv" ng-show="!loggedIn">
+            <div id='signin'>
+              <form name="signinForm" ng-submit='signin()'>
+                <div>
+                  <input type='text'ng-model='user.username' placeholder="username" required>
+                </div>
+                <input
+                     ng-model='user.password'
+                     type="password"
+                     name="password"
+                     ng-minlength="3"
+                     placeholder="password"
+                     required
+                     >
+                <!-- <span ng-show="signinForm.password.$error.required">Required</span>
+                <span ng-show="signinForm.password.$error.minlength">Required</span> -->
+                <button>login</button>
+              </form>
+            </div>
+
+            <div id='signup'>
+              <form name="signupForm" ng-submit='signup()'>
+                <input type='text'ng-model='newUser.username' placeholder="username" required>
+                <input
+                     ng-model='newUser.password'
+                     type="password"
+                     name="password"
+                     required
+                     ng-minlength="3"
+                     placeholder="password"
+                     >
+                <!-- <span ng-show="signupForm.password.$error.required">Required</span> -->
+                <!-- <span ng-show="signupForm.password.$error.minlength">Too short</span> -->
+                <button>create account</button>
+              </form>
+            </div>
+            <p class="auth-info">Sign in to save your followers</p>
+          </div>
+
+          <div class="loggedOutDiv" ng-show="loggedIn">
+            <button ng-click="logout()">logout</button>
+          </div>
+        </div>
+
+      </div>
     </div>
 
    <!--  the ng-view directive is where our templates will be loaded into when navigated to -->
     <div class="feed">
-      <div ng-view></div>
+      <div class="inside-feed" ng-view></div>
     </div>
 
     <script src="lib/angular.js"></script>

@@ -32,10 +32,10 @@ angular.module('hack', [
   }
 })
 
-.filter('htmlsafe', ['$sce', function ($sce) { 
+.filter('htmlsafe', ['$sce', function ($sce) {
   return function (text) {
     return $sce.trustAsHtml(text);
-  };    
+  };
 }])
 
 .directive('rotate', function () {
@@ -44,12 +44,13 @@ angular.module('hack', [
     link: function (scope, element, attrs) {
       scope.$watch(attrs.degrees, function (rotateDegrees) {
         var r = 'rotate(' + rotateDegrees + 'deg)';
-        console.log(r);
+        // console.log(r);
         element.css({
           '-moz-transform': r,
           '-webkit-transform': r,
           '-o-transform': r,
-          '-ms-transform': r
+          '-ms-transform': r,
+          'transform': r
         });
       });
     }

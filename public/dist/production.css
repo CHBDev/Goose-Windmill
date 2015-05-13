@@ -1,3 +1,106 @@
+/*CSS RESET*/
+
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0b1 | 201101
+   NOTE: WORK IN PROGRESS
+   USE WITH CAUTION AND TEST WITH ABANDON */
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+
+/* remember to define visible focus styles! */
+:focus {
+  outline: 0;
+}
+
+/* remember to highlight inserts somehow! */
+ins {
+  text-decoration: none;
+}
+del {
+  text-decoration: line-through;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+
+/*end*/
+
+/*micro clearfix*/
+.cf:before,
+.cf:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.cf:after {
+    clear: both;
+}
+/*end*/
+
+select, input, textarea, button {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+input, button{
+   -webkit-appearance: none;
+   -moz-appearance:    none;
+   appearance:         none;
+
+}
+
+img, button, h1,h2{
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 body{
   font-family: helvetica, arial, sans-serif;
   margin: 0;
@@ -5,12 +108,14 @@ body{
   /*background: #F8F8F8;*/
   height: 100%;
   width: 100%;
+  overflow: hidden;
 }
 
 html {
   height: 100%;
   width: 100%;
   overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 a{
@@ -22,107 +127,236 @@ a{
   color: #C8C8C8;
 }
 
-button {
-  border-radius: 2px;
-  background: white;
-  border: 1px solid grey;
-  cursor: pointer;
-}
+
+
+/*LEFT SIDE*/
 
 .left-container {
-  width: 400px;
+  width: 30%;
+  max-width: 400px;
+  min-width: 200px;
   height: 100%;
-  float: left;
+  display:inline-block;
   position: fixed;
-  background: #404040;
+  left: 0px;
+  top: 0px;
   color: white;
 }
 
-.personal-container {
-  margin-top: -20px;
-}
-
-.auth-container {
-  position: absolute;
-  bottom: 0px;
-  left: 0px;
-  padding-left: 100px;
-  padding-top: 25px;
-  padding-bottom: 20px;
-  width: 300px;
-  background: #FFA500;
-  background: #FF8C00;
-}
-
 .tabs{
-  width: 100%;
-  background: white;
+  height: 30%;
+  background-color: white;
 }
 
-.tab {
-  display: block;
-  padding-top: 25px;
-  padding-bottom: 30px;
-  height: 50px;
-  padding-left: 93px;
+.tabs-content{
+
+}
+
+button.tab {
+   -webkit-transition: all 600ms ease-out;
+  -moz-transition: all 600ms ease-out;
+  -o-transition: all 600ms ease-out;
+  -ms-transition: all 600ms ease-out;
+  transition: all 600ms ease-out;
+  width: 100%;
+  height: 33.33333333333%;
+  display:block;
   text-decoration: none;
-  font-size: 40px;
-  letter-spacing: -3px;
+  font-size: 2em;
+  letter-spacing: -.1px;
   font-weight: bold;
-  position: relative;
   color: #303030;
+  background-color: white;
+  border: 0px solid white;
+  position: relative;
+}
+
+html button.activeTab{
+  background-color: white;
+  text-align: right;
+  border-right: 10px solid #FFA500
+}
+
+button.activeTab:after{
+
+}
+
+
+
+button.inactiveTab {
+  text-align: center;
+  background: #E8E8E8;
+  opacity: 0.4;
+
+}
+.faded:hover{
+  opacity: 1;
+}
+
+.tabs-header-text{
+  color: black;
+}
+
+.leftSectionHolder{
+  width: 100%;
+  margin: 0;
+  color: white;
+  display: inline-block;
+  position: relative;
+  padding: 1px;
+}
+
+html .leftSectionHeaderHolder{
+  display: inline-block;
+  width: auto;
+  height: auto;
+}
+
+.leftSectionHeaderText{
+  font-weight: bold;
+  text-align: center;
+  font-size: 2em;
+  letter-spacing: -.1em;
+  -webkit-transform: rotate(-90deg)translate(-100%,0);
+  -moz-transform:    rotate(-90deg)translate(-100%,0);
+  -ms-transform:     rotate(-90deg)translate(-100%,0);
+  -o-transform:      rotate(-90deg)translate(-100%,0);
+  transform:         rotate(-90deg)translate(-100%,0);
+
+  -webkit-transform-origin: left top;
+  -moz-transform-origin:    left top;
+  -ms-transform-origin:     left top;
+  -o-transform-origin:      left top;
+  transform-origin:         left top;
+}
+
+.leftSectionHolderContent{
+  display: inline-block;
+  text-align: right;
+  width: 90%;
+  height: 100%;
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 
 
 .currently-following{
-  width: 305px;
-  /*height: 100%;*/
-  margin: 0;
-  color: white;
-  margin-left: 95px;
-  margin-top: 30px;
+  background-color: #404040;
+  height: 40%;
 }
 
-.following-header {
-  color: #FF8C00;
-  text-align: center;
-  margin-top: 160px;
-  /*top: 400px;*/
-  left: 20px;
-  position: absolute;
-  transform: rotate(-90deg);
-  transform-origin: left top 0;
-  font-size: 40px;
-  letter-spacing: -3px;
+.following-header{
+
 }
 
-.auth-header {
+.following-header-text{
+   color: #FFA500;
+}
+
+.currently-following-right{
+
+}
+
+.following-right-top{
+  display: inline-block;
+  width: auto;
+  height: auto;
+}
+
+html .following-right-top input {
+  font-family: helvetica, arial, sans-serif;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  display: inline-block;
+  border-radius: 0;
+  border: 0px solid white;
+  font-size: 1.15em;
+  margin: 1px;
+  padding: 0px 0px 0px .1em;
+  background-color: #FFA500;
   color: #404040;
-  text-align: center;
-  left: 20px;
-  bottom: -30px;
-  margin: 0;
-  position: absolute;
-  transform: rotate(-90deg);
-  transform-origin: left top 0;
-  font-size: 40px;
-  letter-spacing: -2px;
-  text-align: center;
 }
 
-.tab-header {
-  color: black;
-  text-align: center;
-  top: 150px;
-  left: 10px;
-  margin: 0;
-  position: absolute;
-  transform: rotate(-90deg);
-  transform-origin: left top 0;
-  font-size: 40px;
-  letter-spacing: -2px;
-  z-index: 200;
+html .following-right-top button {
+  cursor: pointer;
+  font-family: helvetica, arial, sans-serif;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  display: inline-block;
+  border-radius: 0;
+  border: 0px solid white;
+  font-size: 1.15em;
+  margin: 1px;
+  padding: 0px .24em 0px .24em;
+  background-color: #FFA500;
+  color: #404040;
 }
+
+html .following-right-bottom{
+  display: block;
+  text-align: right;
+  width:100%;
+  height: 100%;
+  padding-bottom: 1.3em;
+  overflow-y: scroll;
+}
+
+.following-right-bottom button {
+  border-radius: 0;
+  margin: 1px;
+  background-color: #FFA500;
+  color: #404040;
+  border: 0px solid white;
+  cursor: pointer;
+  float: right;
+  font-size: 1em;
+}
+
+.colorOne{
+  color: #404040;
+}
+
+.colorTwo{
+  color: #FFA500;
+}
+
+html .followed-user{
+  /*border: 2px solid white;*/
+
+
+}
+.followed-user:hover {
+  background: lightgrey;
+}
+.followed-user:after{
+  content: 'x';
+}
+
+.auth-header-text {
+  color: #404040;
+}
+
+.auth-container {
+  border-top: 2px solid #404040;
+  background-color: #FFA500;
+  height: 30%;
+}
+
+.loggedInDiv{
+   display: inline-block;
+  width: auto;
+  height: auto;
+}
+
+.loggedOutDiv{
+   display: inline-block;
+  width: auto;
+  height: auto;
+}
+
 
 .hero-header {
   font-size: 50px;
@@ -130,21 +364,59 @@ button {
   position: fixed;
   transform: rotate(-90deg);
   transform-origin: left top 0;
-  /*right: -100px;*/
   left: 95%;
   margin: 0;
 }
 
 .feed {
-  float: left;
-  margin-left: 545px;
-  margin-left: 580px;
-  margin-top: 30px;
+  display: inline-block;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 70%;
+  height: 100%;
+ /* margin-left: 545px;
+  margin-left: 580px;*/
+  border-top: 2px solid black;
+  overflow-x: visible;
+}
+
+.inside-feed{
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  overflow-x hidden;
+}
+
+.inside-feed button{
+  border: 0px solid white;
+  overflow-x hidden;
+
+}
+
+.story-whole{
+  display: inline-block;
+  width: 100%;
+}
+
+.story-whole-left{
+  display: inline-block;
+  width: 132px;
+  height: 100%;
+  /*text-align: right;*/
+}
+
+.story-whole-right{
+  display: inline-block;
+  min-width: 768px;
 }
 
 .story{
   margin-bottom: 10px;
   position: relative;
+  overflow-x: visible;
 }
 
 .comment {
@@ -157,24 +429,7 @@ button {
   border-radius: 2px;
 }
 
-.followed-user {
-  padding: 7px;
-  padding-top: 3px;
-  padding-bottom: 3px;
-  float: left;
-  cursor: pointer;
-  margin-right: 5px;
-  margin-bottom: 5px;
-  color: black;
-  background: white;
-  opacity: 0.8;
-  font-size: 14px;
-  border-radius: 1px;
-}
 
-.followed-user:hover {
-  background: lightgrey;
-}
 
 .story-title {
   font-size: 16px;
@@ -195,20 +450,18 @@ button {
 }
 
 .points-bar {
+  display: inline-block;
   background: #D8D8D8;
   /*background: black;*/
-  height: 8px;
-  position: absolute;
+  height: 1em;
   box-sizing: border-box;
-  right: 100%;
-  margin-right: 10px;
-  top: 10px;
   max-width: 133px;
+  margin-right: .2em;
 }
 
-.active {
-  width: 0; 
-  height: 0; 
+/*.active {
+  width: 0;
+  height: 0;
   border-top: 10px solid transparent;
   border-bottom: 10px solid transparent;
   border-left: 10px solid #585858;
@@ -216,7 +469,7 @@ button {
   right: -5px;
   position: absolute;
   top: 38px;
-}
+}*/
 
 .source-url {
   opacity: 0.4;
@@ -234,7 +487,6 @@ button {
   border-top: 2px solid black;
   border-left: 2px solid black;
   border-right: 2px solid black;
-  cursor: pointer;
   font-size: 40px;
   font-weight: bold;
   letter-spacing: -3px;
@@ -244,62 +496,68 @@ button {
 }
 .more-button:hover {
   opacity: 1;
-  text-decoration: underline;
-}
-
-.faded {
-  background: #E8E8E8;
-  opacity: 0.4;
-}
-.faded:hover{
-  opacity: 1;
+  text-decoration: none;
 }
 
 .new-follow {
-  margin-bottom: 10px;
+
 }
 
 #signin {
-  margin-bottom: 25px;
+
 }
 
 .auth-info {
-  font-size: 15px;
-  margin: 0;
-  margin-bottom: 25px;
 }
 
 .logged-header {
-  margin-top: 0;
-  margin-bottom: 15px;
-  font-size: 40px;
-  letter-spacing: -2px;
   color: #404040;
+}
+
+
+
+.story-page{
+  position: relative;
+  overflow: hidden;
+}
+
+.story-holder{
+  position: relative;
+  overflow-x: visible;
+}
+
+.story-holder a:hover {
+  text-decoration: underline;
 }
 
 .refresh {
   position: absolute;
-  left: -75px;
-  top: -18px;
+  display: inline-block;
+  z-index: 999;
+  left: 0;
+
   width: 40px;
   height: 40px;
-  background: url(http://www.netballsl.com/uploads/3/1/6/5/31654345/6195073.png);
+  background: url(http://findicons.com/files/icons/2579/iphone_icons/40/reload.png);
   background-repeat: no-repeat;
   background-size: contain;
-  border-radius: 50%;
   opacity: 0.15;
 
-  -webkit-transition: all 350ms ease-out;
-  -moz-transition: all 350ms ease-out;
-  -o-transition: all 350ms ease-out;
-  -ms-transition: all 350ms ease-out;
-  transition: all 350ms ease-out;
+  -webkit-transition: all 600ms ease-out;
+  -moz-transition: all 600ms ease-out;
+  -o-transition: all 600ms ease-out;
+  -ms-transition: all 600ms ease-out;
+  transition: all 600ms ease-out;
 }
 
 .refresh:hover {
   opacity: 0.7;
 }
 
-.story-holder a:hover {
-  text-decoration: underline;
+.clickDown{
+  -webkit-transform: scale(.94,.94);
+  -moz-transform:     scale(.94,.94);
+  -ms-transform:      scale(.94,.94);
+  -o-transform:       scale(.94,.94);
+  transform:          scale(.94,.94);
 }

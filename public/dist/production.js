@@ -296,23 +296,23 @@ angular.module('hack.personal', [])
 
 angular.module('hack.tabs', [])
 
-.controller('TabsController', ["$scope", "$window", "Links", "Followers", function ($scope, $window, Links, Followers) {
+.controller('TabsController', ["$scope", "$location", "$window", "Links", "Followers", function ($scope, $location, $window, Links, Followers) {
   // If a user refreshes when the location is '/personal',
   // it will stay on '/personal'.
   var hash = $window.location.hash.split('/')[1];
   hash = !hash ? 'all' : hash;
   $scope.currentTab = hash;
 
-  // What is angle? Don't worry. This just makes the 
+  // What is angle? Don't worry. This just makes the
   // refresh button do a cool spin animation. We splurged.
   $scope.angle = 360;
 
   $scope.changeTab = function(newTab){
     $scope.currentTab = newTab;
+    $location.path(newTab );
   };
 
-  $scope.refreshs = function(){
-    console.log('hereeeee');
+  $scope.refresh = function(){
     Links.getTopStories();
     Links.getPersonalStories(Followers.following);
     $scope.angle += 360;
@@ -375,10 +375,10 @@ angular.module('hack', [
   }
 })
 
-.filter('htmlsafe', ['$sce', function ($sce) { 
+.filter('htmlsafe', ['$sce', function ($sce) {
   return function (text) {
     return $sce.trustAsHtml(text);
-  };    
+  };
 }])
 
 .directive('rotate', function () {
@@ -387,12 +387,13 @@ angular.module('hack', [
     link: function (scope, element, attrs) {
       scope.$watch(attrs.degrees, function (rotateDegrees) {
         var r = 'rotate(' + rotateDegrees + 'deg)';
-        console.log(r);
+        // console.log(r);
         element.css({
           '-moz-transform': r,
           '-webkit-transform': r,
           '-o-transform': r,
-          '-ms-transform': r
+          '-ms-transform': r,
+          'transform': r
         });
       });
     }
