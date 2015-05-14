@@ -20,7 +20,7 @@ time, mark, audio, video {
   outline: 0;
   font-size: 100%;
   font: inherit;
-  vertical-align:top;
+  vertical-align: baseline;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -62,7 +62,6 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
-
 
 /*end*/
 
@@ -106,6 +105,9 @@ body{
   height: 100%;
   width: 100%;
   vertical-align:top;
+  min-width: 640px;
+  min-height: 640px;
+  overflow: hidden;
 }
 
 html {
@@ -126,9 +128,9 @@ a{
 /*LEFT SIDE*/
 
 html .left-container {
-  width: 30%;
-  max-width: 400px;
-  min-width: 200px;
+  width: 29%;
+  min-width: 201px;
+  max-width: 480px;
   height: 100%;
   display:inline-block;
   vertical-align:top;
@@ -173,7 +175,7 @@ button.tab {
 }
 
 html button.activeTab{
-  background-color: white;
+  background-color: transparent;
   text-align: right;
   border-right: 10px solid #FFA500
 }
@@ -204,6 +206,7 @@ button.inactiveTab {
   display: block;
   position: relative;
   padding: 1px;
+  overflow: hidden;
 }
 
 html .leftSectionHeaderHolder{
@@ -416,13 +419,8 @@ html .followed-user{
 
 .feed {
   display: inline-block;
-
-  /*top: 0;
-  right: 0;*/
-  width: 70%;
+  width: 69%;
   height: 100%;
- /* margin-left: 545px;
-  margin-left: 580px;*/
 }
 
 .inside-feed{
@@ -452,7 +450,8 @@ html .followed-user{
 
 .story-whole-right{
   display: inline-block;
-  width: auto;
+  width: 75%;
+
   /*min-width: 768px;*/
 }
 
@@ -469,7 +468,7 @@ html .followed-user{
 }
 
 .story-title {
-  font-size: 1.2em;
+  font-size: 1em;
   font-weight: 600;
   font-family: 'open sans', helvetica, arial, sans-serif;
 }
@@ -492,7 +491,7 @@ html .followed-user{
   /*background: black;*/
   height: 1em;
   box-sizing: border-box;
-  max-width: 133px;
+  max-width: 132px;
   margin-right: .2em;
 }
 
@@ -596,3 +595,99 @@ html .followed-user{
   -o-transform:       scale(.94,.94);
   transform:          scale(.94,.94);
 }
+
+@media screen and (max-width: 1700px) {
+  /*space for another column on the right here*/
+}
+
+
+@media screen and (max-width: 1520px) {
+  .points-bar{
+
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .points-bar{
+    display: none;
+  }
+  .story-whole-left{
+    display: none;
+  }
+  .story-whole-right{
+    width: 100%;
+    margin: 2px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .story-whole-right{
+
+  }
+
+  html .leftSectionHeaderHolder{
+    display: block;
+    text-align: right;
+  }
+
+  .leftSectionHeaderText{
+    font-weight: bold;
+    text-align: right;
+    font-size: 2em;
+    letter-spacing: -.1em;
+    margin-right: 2px;
+    -webkit-transform: rotate(0)translate(0,0);
+    -moz-transform:    rotate(0)translate(0,0);
+    -ms-transform:     rotate(0)translate(0,0);
+    -o-transform:      rotate(0)translate(0,0);
+    transform:         rotate(0)translate(0,0);
+
+    -webkit-transform-origin: left top;
+    -moz-transform-origin:    left top;
+    -ms-transform-origin:     left top;
+    -o-transform-origin:      left top;
+    transform-origin:         left top;
+  }
+
+  .leftSectionHolderContent{
+    display: block;
+    position: relative;
+    width: 100%;
+  }
+
+  html .tabs .leftSectionHeaderHolder{
+    height: 10%;
+  }
+
+  button.tab{
+    height: 30%;
+  }
+
+}
+
+@media screen and (max-width: 700px) {
+  html .left-container{
+    width: 100%;
+    display: inline-block;
+    height: 30%;
+    max-width: 100%;
+  }
+  html .feed{
+    width: 100%;
+    display: inline-block;
+    height: 70%;
+  }
+
+  .leftSectionHolder{
+    display: inline-block;
+    vertical-align: top;
+    border: 0px solid white;
+    height: 100%;
+    width: 33.3333333%;
+  }
+
+}
+
+
+
+
