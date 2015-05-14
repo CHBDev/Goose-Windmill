@@ -92,20 +92,23 @@ angular.module('hack.bookmarkService', [])
   };
 
   var addBookmark = function(story){
-    var story = {
+    var article = {
       url: story.url,
       title: story.title,
       author: story.author,
       created_at: story.created_at,
       objectID: story.objectID
     };
-    story = JSON.stringify(story);
+    article = JSON.stringify(article);
+    // push article into bookmarks
+    // json.Stringify bookmarks
+    // set that to be localBookmarks
     var localBookmarks = localStorageBookmarks();
 
-    if (!localBookmarks.includes(story) && bookmarks.indexOf(story) === -1) {
-      localBookmarks += ',' + story
+    if (!localBookmarks.includes(article) && bookmarks.indexOf(article) === -1) {
+      localBookmarks += ',' + article
       $window.localStorage.setItem('hfBookmarks', localBookmarks);
-      bookmarks.push(story);
+      bookmarks.push(article);
     }
 
     // makes call to database to mirror our changes
@@ -113,15 +116,15 @@ angular.module('hack.bookmarkService', [])
   };
 
   var removeBookmark = function(story){
-    var localBookmarks = localStorageBookmarks();
+    // var localBookmarks = localStorageBookmarks();
 
-    if (localBookmarks.includes(story) && bookmarks.indexOf(story) > -1) {
-      following.splice(bookmarks.indexOf(story), 1);
+    // if (localBookmarks.includes(story) && bookmarks.indexOf(story) > -1) {
+    //   following.splice(bookmarks.indexOf(story), 1);
 
-      localBookmarks = localBookmarks.split(',');
-      localBookmarks.splice(localBookmarks.indexOf(story), 1).join(',');
-      $window.localStorage.setItem('hfBookmarks', localBookmarks);
-    }
+    //   localBookmarks = localBookmarks.split(',');
+    //   localBookmarks.splice(localBookmarks.indexOf(story), 1).join(',');
+    //   $window.localStorage.setItem('hfBookmarks', localBookmarks);
+    // }
 
     // makes call to database to mirror our changes
     updateBookmarks();
@@ -437,11 +440,12 @@ angular.module('hack.currentlyFollowing', [])
 
 angular.module('hack.personal', [])
 
-.controller('PersonalController', ["$scope", "$window", "Links", "Followers", function ($scope, $window, Links, Followers) {
+.controller('PersonalController', ["$scope", "$window", "Links", "Followers", "Auth", function ($scope, $window, Links, Followers, Auth) {
   $scope.stories = Links.personalStories;
   $scope.users = Followers.following;
   $scope.perPage = 30;
   $scope.index = $scope.perPage;
+  $scope.loggedIn = Auth.isAuth();
 
   var init = function(){
     fetchUsers();
@@ -456,7 +460,9 @@ angular.module('hack.personal', [])
 
 angular.module('hack.bookmarks', [])
 
-.controller('BookmarksController', ["$scope", "$window", "Links", "Followers", function ($scope, $window, Links, Followers) {
+.controller('BookmarksController', ["$scope", "$window", "Links", "Followers", "Auth", function ($scope, $window, Links, Followers, Auth) {
+  $scope.currentBookmarks = Bookmarks.bookmarks;
+  $scope.loggedIn = Auth.isAuth();
   // $scope.stories = Links.personalStories;
   // $scope.users = Followers.following;
   // $scope.perPage = 30;
@@ -501,14 +507,14 @@ angular.module('hack.tabs', [])
 
 angular.module('hack.topStories', [])
 
-.controller('TopStoriesController', ["$scope", "$window", "Links", "Followers", "Bookmarks", function ($scope, $window, Links, Followers, Bookmarks) {
+.controller('TopStoriesController', ["$scope", "$window", "Links", "Followers", "Bookmarks", "Auth", function ($scope, $window, Links, Followers, Bookmarks, Auth) {
   angular.extend($scope, Links);
-  $scope.bookmarked = false;
   $scope.stories = Links.topStories;
   $scope.perPage = 30;
   $scope.index = $scope.perPage;
-
+  $scope.loggedIn = Auth.isAuth();
   $scope.currentlyFollowing = Followers.following;
+  $scope.currentBookmarks = Bookmarks.bookmarks;
 
   $scope.getData = function() {
     Links.getTopStories();
@@ -518,13 +524,29 @@ angular.module('hack.topStories', [])
     Followers.addFollower(username);
   };
 
+  $scope.isBookmark = function(story) {
+    console.log('isBookmark was called');
+    var link = {
+      url: story.url,
+      title: story.title,
+      author: story.author,
+      created_at: story.created_at,
+      objectID: story.objectID
+    };
+    console.log($scope.currentBookmarks);
+    if (!$scope.currentBookmarks || $scope.currentBookmarks.indexOf(link) === -1) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
   $scope.addBookmark = function(story) {
-    $scope.bookmarked = true;
     Bookmarks.addBookmark(story);
   };
 
   $scope.removeBookmark = function(story) {
-    $scope.bookmarked = false;
+    Bookmarks.removeBookmark(story);
   };
 
   $scope.getData();

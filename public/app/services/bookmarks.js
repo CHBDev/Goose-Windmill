@@ -51,20 +51,23 @@ angular.module('hack.bookmarkService', [])
   };
 
   var addBookmark = function(story){
-    var story = {
+    var article = {
       url: story.url,
       title: story.title,
       author: story.author,
       created_at: story.created_at,
       objectID: story.objectID
     };
-    story = JSON.stringify(story);
+    article = JSON.stringify(article);
+    // push article into bookmarks
+    // json.Stringify bookmarks
+    // set that to be localBookmarks
     var localBookmarks = localStorageBookmarks();
 
-    if (!localBookmarks.includes(story) && bookmarks.indexOf(story) === -1) {
-      localBookmarks += ',' + story
+    if (!localBookmarks.includes(article) && bookmarks.indexOf(article) === -1) {
+      localBookmarks += ',' + article
       $window.localStorage.setItem('hfBookmarks', localBookmarks);
-      bookmarks.push(story);
+      bookmarks.push(article);
     }
 
     // makes call to database to mirror our changes
@@ -72,15 +75,15 @@ angular.module('hack.bookmarkService', [])
   };
 
   var removeBookmark = function(story){
-    var localBookmarks = localStorageBookmarks();
+    // var localBookmarks = localStorageBookmarks();
 
-    if (localBookmarks.includes(story) && bookmarks.indexOf(story) > -1) {
-      following.splice(bookmarks.indexOf(story), 1);
+    // if (localBookmarks.includes(story) && bookmarks.indexOf(story) > -1) {
+    //   following.splice(bookmarks.indexOf(story), 1);
 
-      localBookmarks = localBookmarks.split(',');
-      localBookmarks.splice(localBookmarks.indexOf(story), 1).join(',');
-      $window.localStorage.setItem('hfBookmarks', localBookmarks);
-    }
+    //   localBookmarks = localBookmarks.split(',');
+    //   localBookmarks.splice(localBookmarks.indexOf(story), 1).join(',');
+    //   $window.localStorage.setItem('hfBookmarks', localBookmarks);
+    // }
 
     // makes call to database to mirror our changes
     updateBookmarks();
