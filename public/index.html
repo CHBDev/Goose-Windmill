@@ -15,7 +15,7 @@
        <div class="tabs leftSectionHolder" ng-controller="TabsController">
 
           <div class="tabs-header leftSectionHeaderHolder">
-            <div class="tabs-header-text leftSectionHeaderText">Filters</div>
+            <div class="tabs-header-text leftSectionHeaderText">Select</div>
           </div>
 
           <div class="tabs-content leftSectionHolderContent">
@@ -28,6 +28,9 @@
               <button ng-class="currentTab === 'bookmarks' ? 'tab activeTab': 'tab inactiveTab'" href="#/bookmarks" ng-click="changeTab('bookmarks')"><div class="active" ng-show="currentTab === 'bookmarks'">
              <div class="refresh" degrees="angle" rotate ng-click="refresh()"></div>
           </div>Bookmarks</button>
+            <button ng-class="currentTab === 'filters' ? 'tab activeTab': 'tab inactiveTab'" href="#/filters" ng-click="changeTab('filters')"><div class="active" ng-show="currentTab === 'filters'">
+               <div class="refresh" degrees="angle" rotate ng-click="refresh()"></div>
+          </div>Filters</button>
 
 
           </div>
