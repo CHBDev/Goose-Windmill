@@ -172,6 +172,7 @@ button.tab {
   background-color: white;
   border: 0px solid white;
   position: relative;
+
 }
 
 html button.activeTab{
@@ -181,7 +182,6 @@ html button.activeTab{
 }
 
 button.activeTab:after{
-
 }
 
 
@@ -241,6 +241,7 @@ html .leftSectionHeaderHolder{
   position: absolute;
   right: 0;
   top: 0;
+
 }
 
 
@@ -514,21 +515,23 @@ html .followed-user{
 
 .more-button {
   display: block;
-  margin-top: 40px;
-  padding-top: 40px;
-  padding-bottom: 40px;
-  margin-right: 150px;
+  width: 80%;
+  margin-top: 1em;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  margin-right: auto;
+  margin-left: auto;
   text-align: center;
   /*background: #e8e8e8;*/
   border-top: 2px solid black;
   border-left: 2px solid black;
   border-right: 2px solid black;
-  font-size: 40px;
+  font-size: 1.6em;
   font-weight: bold;
   letter-spacing: -3px;
   opacity: 0.55;
-  border-top-right-radius: 2px;
-  border-top-left-radius: 2px;
+  border-top-right-radius: 1em;
+  border-top-left-radius: 1em;
 }
 .more-button:hover {
   opacity: 1;

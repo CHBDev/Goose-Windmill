@@ -17,7 +17,7 @@ var UserSchema = mongoose.Schema({
   following: {
     type: String,
     required: true
-  }
+  },
 });
 
 var User = mongoose.model('users', UserSchema);
@@ -33,7 +33,7 @@ User.prototype.createUser = function (params, callback){
       var newUser = new User({
         username: params.username,
         hashword: hash,
-        following: params.following
+        following: params.following,
       });
       newUser.save(function(err,results){
         //Relay user creation success/failure back to the controller
@@ -65,7 +65,7 @@ User.prototype.signin = function (username, password, callback){
       //If the user doesn't exist, handle error
       callback('Username not found', null);
     }
-  });  
+  }); 
 };
 
 //Update database when the user adds or removes users from their following list
