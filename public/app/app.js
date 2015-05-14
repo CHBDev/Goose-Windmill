@@ -1,5 +1,6 @@
 angular.module('hack', [
   'hack.topStories',
+  'topStoriesWithKeyword',
   'hack.personal',
   'hack.currentlyFollowing',
   'hack.linkService',
@@ -19,6 +20,10 @@ angular.module('hack', [
     .when('/personal', {
       templateUrl: 'app/personal/personal.html',
       controller: 'PersonalController'
+    })
+    .when('/keyword', {
+      templateUrl: 'app/topStoriesWithKeyword/topStoriesWithKeyword.html',
+      controller: 'TopStoriesWithKeywordController'
     })
     .otherwise({
       redirectTo: '/'

@@ -3,8 +3,10 @@ angular.module('hack.linkService', [])
 .factory('Links', function($http, $interval, Followers) {
   var personalStories = [];
   var topStories = [];
+  var topStoriesWithKeyword = [];
 
   var getTopStories = function() {
+    console.log('getTopStories');
     var url = '/api/cache/topStories'
 
     return $http({
@@ -20,6 +22,27 @@ angular.module('hack.linkService', [])
       topStories.push.apply(topStories, resp.data);
     });
   };
+
+  var getTopStoriesWithKeyword = function(keyword) {
+    console.log('getTopStoriesWithKeyword');
+    var url = '/api/cache/topStoriesWithKeyword'
+
+    return $http({
+      method: 'GET',
+      url: url,
+      params: {keyword: 'soft'}
+    })
+    .then(function(resp) {
+      console.log(resp);
+
+      // Very important to not point topStories to a new array.
+      // Instead, clear out the array, then push all the new
+      // datum in place. There are pointers pointing to this array.
+      topStoriesWithKeyword.splice(0, topStoriesWithKeyword.length);
+      topStoriesWithKeyword.push.apply(topStoriesWithKeyword, resp.data);
+      console.log(topStoriesWithKeyword);
+    }); 
+  }
 
   var getPersonalStories = function(usernames){
     var query = 'http://hn.algolia.com/api/v1/search_by_date?hitsPerPage=500&tagFilters=(story,comment),(';
@@ -71,9 +94,11 @@ angular.module('hack.linkService', [])
 
   return {
     getTopStories: getTopStories,
+    getTopStoriesWithKeyword: getTopStoriesWithKeyword,
     getPersonalStories: getPersonalStories,
     personalStories: personalStories,
-    topStories: topStories
+    topStories: topStories,
+    topStoriesWithKeyword: topStoriesWithKeyword
   };
 });
 

@@ -138,8 +138,10 @@ angular.module('hack.linkService', [])
 .factory('Links', ["$http", "$interval", "Followers", function($http, $interval, Followers) {
   var personalStories = [];
   var topStories = [];
+  var topStoriesWithKeyword = [];
 
   var getTopStories = function() {
+    console.log('getTopStories');
     var url = '/api/cache/topStories'
 
     return $http({
@@ -155,6 +157,27 @@ angular.module('hack.linkService', [])
       topStories.push.apply(topStories, resp.data);
     });
   };
+
+  var getTopStoriesWithKeyword = function(keyword) {
+    console.log('getTopStoriesWithKeyword');
+    var url = '/api/cache/topStoriesWithKeyword'
+
+    return $http({
+      method: 'GET',
+      url: url,
+      params: {keyword: 'soft'}
+    })
+    .then(function(resp) {
+      console.log(resp);
+
+      // Very important to not point topStories to a new array.
+      // Instead, clear out the array, then push all the new
+      // datum in place. There are pointers pointing to this array.
+      topStoriesWithKeyword.splice(0, topStoriesWithKeyword.length);
+      topStoriesWithKeyword.push.apply(topStoriesWithKeyword, resp.data);
+      console.log(topStoriesWithKeyword);
+    }); 
+  }
 
   var getPersonalStories = function(usernames){
     var query = 'http://hn.algolia.com/api/v1/search_by_date?hitsPerPage=500&tagFilters=(story,comment),(';
@@ -206,9 +229,11 @@ angular.module('hack.linkService', [])
 
   return {
     getTopStories: getTopStories,
+    getTopStoriesWithKeyword: getTopStoriesWithKeyword,
     getPersonalStories: getPersonalStories,
     personalStories: personalStories,
-    topStories: topStories
+    topStories: topStories,
+    topStoriesWithKeyword: topStoriesWithKeyword
   };
 }]);
 
@@ -341,8 +366,35 @@ angular.module('hack.topStories', [])
 }]);
 
 
+angular.module('topStoriesWithKeyword', [])
+
+.controller('TopStoriesWithKeywordController', ["$scope", "$window", "Links", "Followers", function ($scope, $window, Links, Followers) {
+  angular.extend($scope, Links);
+  $scope.stories = Links.topStoriesWithKeyword;
+  $scope.perPage = 30;
+  $scope.index = $scope.perPage;
+  // now i want to add a scope variable that is equal to the value of an input box
+  // this might need to be a global variable so that its value can be set in the topStories page and still exist here
+  // an alternative would be to click a link that takes us to the keyword page with the keyword initially set to ''
+
+  $scope.currentlyFollowing = Followers.following;
+
+  $scope.getData = function(keyword) {
+    Links.getTopStoriesWithKeyword(keyword);
+  };
+  
+  $scope.addUser = function(username) {
+    Followers.addFollower(username);
+  };
+
+  $scope.getData('soft'); // the argument here will eventually be set by the input box
+  console.log("stories" + $scope.stories);
+}]);
+
+
 angular.module('hack', [
   'hack.topStories',
+  'topStoriesWithKeyword',
   'hack.personal',
   'hack.currentlyFollowing',
   'hack.linkService',
@@ -362,6 +414,10 @@ angular.module('hack', [
     .when('/personal', {
       templateUrl: 'app/personal/personal.html',
       controller: 'PersonalController'
+    })
+    .when('/keyword', {
+      templateUrl: 'app/topStoriesWithKeyword/topStoriesWithKeyword.html',
+      controller: 'TopStoriesWithKeywordController'
     })
     .otherwise({
       redirectTo: '/'
