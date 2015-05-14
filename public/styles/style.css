@@ -1,9 +1,6 @@
 /*CSS RESET*/
 
-/* http://meyerweb.com/eric/tools/css/reset/
-   v2.0b1 | 201101
-   NOTE: WORK IN PROGRESS
-   USE WITH CAUTION AND TEST WITH ABANDON */
+/* http://meyerweb.com/eric/tools/css/reset/*/
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -66,7 +63,6 @@ table {
   border-spacing: 0;
 }
 
-
 /*end*/
 
 /*micro clearfix*/
@@ -108,13 +104,15 @@ body{
   /*background: #F8F8F8;*/
   height: 100%;
   width: 100%;
+  vertical-align:top;
+  min-width: 640px;
+  min-height: 640px;
   overflow: hidden;
 }
 
 html {
   height: 100%;
   width: 100%;
-  overflow-x: hidden;
   overflow-y: scroll;
 }
 
@@ -127,20 +125,25 @@ a{
   color: #C8C8C8;
 }
 
-
-
 /*LEFT SIDE*/
 
-.left-container {
-  width: 30%;
-  max-width: 400px;
-  min-width: 200px;
+html .left-container {
+  width: 29%;
+  min-width: 201px;
+  max-width: 480px;
   height: 100%;
   display:inline-block;
-  position: fixed;
-  left: 0px;
-  top: 0px;
+  vertical-align:top;
+  left: 0;
+  top: 0;
   color: white;
+}
+
+.spacer{
+  display: inline-block;
+  width: 10px;
+  height: 100%;
+  background-color: black;
 }
 
 .tabs{
@@ -172,7 +175,7 @@ button.tab {
 }
 
 html button.activeTab{
-  background-color: white;
+  background-color: transparent;
   text-align: right;
   border-right: 10px solid #FFA500
 }
@@ -182,9 +185,8 @@ button.activeTab:after{
 }
 
 
-
 button.inactiveTab {
-  text-align: center;
+  text-align: right;
   background: #E8E8E8;
   opacity: 0.4;
 
@@ -201,9 +203,10 @@ button.inactiveTab {
   width: 100%;
   margin: 0;
   color: white;
-  display: inline-block;
+  display: block;
   position: relative;
   padding: 1px;
+  overflow: hidden;
 }
 
 html .leftSectionHeaderHolder{
@@ -404,7 +407,7 @@ html .followed-user{
 }
 
 
-.hero-header {
+/*.hero-header {
   font-size: 50px;
   top: 270px;
   position: fixed;
@@ -412,19 +415,12 @@ html .followed-user{
   transform-origin: left top 0;
   left: 95%;
   margin: 0;
-}
+}*/
 
 .feed {
   display: inline-block;
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 70%;
+  width: 69%;
   height: 100%;
- /* margin-left: 545px;
-  margin-left: 580px;*/
-  border-top: 2px solid black;
-  overflow-x: visible;
 }
 
 .inside-feed{
@@ -433,12 +429,10 @@ html .followed-user{
   width: 100%;
   height: 100%;
   overflow-y: scroll;
-  overflow-x hidden;
 }
 
 .inside-feed button{
   border: 0px solid white;
-  overflow-x hidden;
 
 }
 
@@ -451,34 +445,30 @@ html .followed-user{
   display: inline-block;
   width: 132px;
   height: 100%;
-  /*text-align: right;*/
+  text-align: right;
 }
 
 .story-whole-right{
   display: inline-block;
-  min-width: 768px;
+  width: 75%;
+
+  /*min-width: 768px;*/
 }
 
 .story{
-  margin-bottom: 10px;
+  margin-bottom: .6em;
   position: relative;
-  overflow-x: visible;
 }
 
 .comment {
-  margin-top: 40px;
-  margin-bottom: 40px;
-  padding: 25px;
-  margin-right: 150px;
-  background: rgb(244,244,244) ;
-  background: #E8E8E8;
-  border-radius: 2px;
+  margin: 2px;
+  padding: 1.5em;
+  background-color: #E8E8E8;
+
 }
 
-
-
 .story-title {
-  font-size: 16px;
+  font-size: 1em;
   font-weight: 600;
   font-family: 'open sans', helvetica, arial, sans-serif;
 }
@@ -486,13 +476,13 @@ html .followed-user{
 .bottom-row {
   /*color: grey;*/
   opacity: 0.4;
-  font-size: 13px;
+  font-size: .9em;
 }
 
 .top-row {
   margin-bottom: 20px;
   opacity: 0.35;
-  font-size: 14px;
+  font-size: .95em;
 }
 
 .points-bar {
@@ -501,7 +491,7 @@ html .followed-user{
   /*background: black;*/
   height: 1em;
   box-sizing: border-box;
-  max-width: 133px;
+  max-width: 132px;
   margin-right: .2em;
 }
 
@@ -519,7 +509,7 @@ html .followed-user{
 
 .source-url {
   opacity: 0.4;
-  font-size: 13px;
+  font-size: .9em;
 }
 
 .more-button {
@@ -564,12 +554,10 @@ html .followed-user{
 
 .story-page{
   position: relative;
-  overflow: hidden;
 }
 
 .story-holder{
   position: relative;
-  overflow-x: visible;
 }
 
 .story-holder a:hover {
@@ -607,3 +595,99 @@ html .followed-user{
   -o-transform:       scale(.94,.94);
   transform:          scale(.94,.94);
 }
+
+@media screen and (max-width: 1700px) {
+  /*space for another column on the right here*/
+}
+
+
+@media screen and (max-width: 1520px) {
+  .points-bar{
+
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .points-bar{
+    display: none;
+  }
+  .story-whole-left{
+    display: none;
+  }
+  .story-whole-right{
+    width: 100%;
+    margin: 2px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .story-whole-right{
+
+  }
+
+  html .leftSectionHeaderHolder{
+    display: block;
+    text-align: right;
+  }
+
+  .leftSectionHeaderText{
+    font-weight: bold;
+    text-align: right;
+    font-size: 2em;
+    letter-spacing: -.1em;
+    margin-right: 2px;
+    -webkit-transform: rotate(0)translate(0,0);
+    -moz-transform:    rotate(0)translate(0,0);
+    -ms-transform:     rotate(0)translate(0,0);
+    -o-transform:      rotate(0)translate(0,0);
+    transform:         rotate(0)translate(0,0);
+
+    -webkit-transform-origin: left top;
+    -moz-transform-origin:    left top;
+    -ms-transform-origin:     left top;
+    -o-transform-origin:      left top;
+    transform-origin:         left top;
+  }
+
+  .leftSectionHolderContent{
+    display: block;
+    position: relative;
+    width: 100%;
+  }
+
+  html .tabs .leftSectionHeaderHolder{
+    height: 10%;
+  }
+
+  button.tab{
+    height: 30%;
+  }
+
+}
+
+@media screen and (max-width: 700px) {
+  html .left-container{
+    width: 100%;
+    display: inline-block;
+    height: 30%;
+    max-width: 100%;
+  }
+  html .feed{
+    width: 100%;
+    display: inline-block;
+    height: 70%;
+  }
+
+  .leftSectionHolder{
+    display: inline-block;
+    vertical-align: top;
+    border: 0px solid white;
+    height: 100%;
+    width: 33.3333333%;
+  }
+
+}
+
+
+
+
