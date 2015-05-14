@@ -54,11 +54,12 @@ angular.module('hack.bookmarkService', [])
 
   var updateBookmarks = function(){
    var user = $window.localStorage.getItem('com.hack');
-
+   var temp = localStorageBookmarks();
+  
     if(!!user){
       var data = {
         username: user,
-        bookmarks: localStorageBookmarks()
+        bookmarks: '['+temp.slice("undefined,".length)+']'
       };
 
       $http({
@@ -95,10 +96,10 @@ angular.module('hack.bookmarkService', [])
       url: story.url,
       title: story.title,
       author: story.author,
-      created_at: story.created_at
+      created_at: story.created_at,
+      objectID: story.objectID
     };
     story = JSON.stringify(story);
-    console.log('it exisits!');
     var localBookmarks = localStorageBookmarks();
 
     if (!localBookmarks.includes(story) && bookmarks.indexOf(story) === -1) {
@@ -474,6 +475,7 @@ angular.module('hack.topStories', [])
 
 .controller('TopStoriesController', ["$scope", "$window", "Links", "Followers", "Bookmarks", function ($scope, $window, Links, Followers, Bookmarks) {
   angular.extend($scope, Links);
+  $scope.bookmarked = false;
   $scope.stories = Links.topStories;
   $scope.perPage = 30;
   $scope.index = $scope.perPage;
@@ -489,8 +491,12 @@ angular.module('hack.topStories', [])
   };
 
   $scope.addBookmark = function(story) {
-    console.log(story);
+    $scope.bookmarked = true;
     Bookmarks.addBookmark(story);
+  };
+
+  $scope.removeBookmark = function(story) {
+    $scope.bookmarked = false;
   };
 
   $scope.getData();

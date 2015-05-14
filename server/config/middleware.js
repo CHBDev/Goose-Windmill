@@ -15,10 +15,14 @@ module.exports = function(app, express){
   
   var cacheRouter = express.Router();
   require('../cache/cacheRoutes.js')(app, cacheRouter);
+
+  var bookmarksRouter = express.Router();
+  require('../bookmarks/bookmarksRoutes.js')(app, bookmarksRouter);
   
   //Establish routes
   app.use('/api/users', userRouter);
   app.use('/api/cache', cacheRouter); 
+  app.use('/api/bookmarks', bookmarksRouter);
 };
 
 
