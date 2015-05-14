@@ -1,9 +1,6 @@
 /*CSS RESET*/
 
-/* http://meyerweb.com/eric/tools/css/reset/
-   v2.0b1 | 201101
-   NOTE: WORK IN PROGRESS
-   USE WITH CAUTION AND TEST WITH ABANDON */
+/* http://meyerweb.com/eric/tools/css/reset/*/
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -23,7 +20,7 @@ time, mark, audio, video {
   outline: 0;
   font-size: 100%;
   font: inherit;
-  vertical-align: baseline;
+  vertical-align:top;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -108,13 +105,12 @@ body{
   /*background: #F8F8F8;*/
   height: 100%;
   width: 100%;
-  overflow: hidden;
+  vertical-align:top;
 }
 
 html {
   height: 100%;
   width: 100%;
-  overflow-x: hidden;
   overflow-y: scroll;
 }
 
@@ -127,20 +123,25 @@ a{
   color: #C8C8C8;
 }
 
-
-
 /*LEFT SIDE*/
 
-.left-container {
+html .left-container {
   width: 30%;
   max-width: 400px;
   min-width: 200px;
   height: 100%;
   display:inline-block;
-  position: fixed;
-  left: 0px;
-  top: 0px;
+  vertical-align:top;
+  left: 0;
+  top: 0;
   color: white;
+}
+
+.spacer{
+  display: inline-block;
+  width: 10px;
+  height: 100%;
+  background-color: black;
 }
 
 .tabs{
@@ -182,9 +183,8 @@ button.activeTab:after{
 }
 
 
-
 button.inactiveTab {
-  text-align: center;
+  text-align: right;
   background: #E8E8E8;
   opacity: 0.4;
 
@@ -201,7 +201,7 @@ button.inactiveTab {
   width: 100%;
   margin: 0;
   color: white;
-  display: inline-block;
+  display: block;
   position: relative;
   padding: 1px;
 }
@@ -404,7 +404,7 @@ html .followed-user{
 }
 
 
-.hero-header {
+/*.hero-header {
   font-size: 50px;
   top: 270px;
   position: fixed;
@@ -412,19 +412,17 @@ html .followed-user{
   transform-origin: left top 0;
   left: 95%;
   margin: 0;
-}
+}*/
 
 .feed {
   display: inline-block;
-  position: fixed;
-  top: 0;
-  right: 0;
+
+  /*top: 0;
+  right: 0;*/
   width: 70%;
   height: 100%;
  /* margin-left: 545px;
   margin-left: 580px;*/
-  border-top: 2px solid black;
-  overflow-x: visible;
 }
 
 .inside-feed{
@@ -433,12 +431,10 @@ html .followed-user{
   width: 100%;
   height: 100%;
   overflow-y: scroll;
-  overflow-x hidden;
 }
 
 .inside-feed button{
   border: 0px solid white;
-  overflow-x hidden;
 
 }
 
@@ -451,34 +447,29 @@ html .followed-user{
   display: inline-block;
   width: 132px;
   height: 100%;
-  /*text-align: right;*/
+  text-align: right;
 }
 
 .story-whole-right{
   display: inline-block;
-  min-width: 768px;
+  width: auto;
+  /*min-width: 768px;*/
 }
 
 .story{
-  margin-bottom: 10px;
+  margin-bottom: .6em;
   position: relative;
-  overflow-x: visible;
 }
 
 .comment {
-  margin-top: 40px;
-  margin-bottom: 40px;
-  padding: 25px;
-  margin-right: 150px;
-  background: rgb(244,244,244) ;
-  background: #E8E8E8;
-  border-radius: 2px;
+  margin: 2px;
+  padding: 1.5em;
+  background-color: #E8E8E8;
+
 }
 
-
-
 .story-title {
-  font-size: 16px;
+  font-size: 1.2em;
   font-weight: 600;
   font-family: 'open sans', helvetica, arial, sans-serif;
 }
@@ -486,13 +477,13 @@ html .followed-user{
 .bottom-row {
   /*color: grey;*/
   opacity: 0.4;
-  font-size: 13px;
+  font-size: .9em;
 }
 
 .top-row {
   margin-bottom: 20px;
   opacity: 0.35;
-  font-size: 14px;
+  font-size: .95em;
 }
 
 .points-bar {
@@ -519,7 +510,7 @@ html .followed-user{
 
 .source-url {
   opacity: 0.4;
-  font-size: 13px;
+  font-size: .9em;
 }
 
 .more-button {
@@ -564,12 +555,10 @@ html .followed-user{
 
 .story-page{
   position: relative;
-  overflow: hidden;
 }
 
 .story-holder{
   position: relative;
-  overflow-x: visible;
 }
 
 .story-holder a:hover {
