@@ -30,7 +30,7 @@ angular.module('hack.linkService', [])
     return $http({
       method: 'GET',
       url: url,
-      params: {keyword: 'soft'}
+      params: {keyword: keyword}
     })
     .then(function(resp) {
       console.log(resp);
