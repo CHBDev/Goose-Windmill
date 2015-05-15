@@ -33,7 +33,7 @@ angular.module('hack.linkService', [])
     return $http({
       method: 'GET',
       url: url,
-      params: {keyword: 'soft'}
+      params: {keyword: keyword}
     })
     .then(function(resp) {
       console.log(resp);
@@ -82,13 +82,13 @@ angular.module('hack.linkService', [])
       method: 'POST',
       url: '/api/bookmarks/getBookmarks',
       data: data
-    }) 
+    })
     .then(function(resp) {
       bookmarkStories.splice(0, bookmarkStories.length);
       angular.forEach(resp.data, function (story) {
         bookmarkStories.push(story);
       });
-    });  
+    });
   };
 
   var arrToCSV = function(arr){
@@ -118,7 +118,7 @@ angular.module('hack.linkService', [])
     getPersonalStories: getPersonalStories,
     personalStories: personalStories,
     topStories: topStories,
-    topStoriesWithKeyword: topStoriesWithKeyword
+    topStoriesWithKeyword: topStoriesWithKeyword,
     getBookmarks: getBookmarks,
     bookmarkStories: bookmarkStories
   };
