@@ -2,6 +2,7 @@ var request = require('request');
 
 //In server memory of Hacker News current top stories
 var topStories = [];
+var topStoriesWithKeyword = [];
 
 //Set headers
 var headers = {
@@ -13,12 +14,26 @@ module.exports = {
   //Access function for model data
   getTopStories: function(callback) {
     if (topStories.length) {
-      callback(null,topStories);
+      callback(null, topStories);
     } else {
       callback(new Error('Top Stories not cached!'));
     }
   },
 
+  getTopStoriesWithKeyword: function(keyword, callback) {
+    topStoriesWithKeyword = [];
+    for (var i = 0; i < topStories.length; i++){
+      if (topStories[i].title.search(keyword) !== -1){
+        topStoriesWithKeyword.push(topStories[i]);
+      }
+    }
+    console.log(topStoriesWithKeyword.length);
+    if (topStoriesWithKeyword.length) {
+      callback(null, topStoriesWithKeyword);
+    } else {
+      callback(new Error('Top Stories with keyword not found!'));
+    }
+  },
   // The top news stories data is retrieved from the Algolia API, however it does not include
   // Hacker News' ranking algorithm. The data retrieved from Algolia is sorted according to the
   // ranking on the firebase API
@@ -35,6 +50,9 @@ module.exports = {
     
     // Perform the firebase API request
     request(options, function(error, response, html){
+      if (error) {
+        return;
+      }
       var data = JSON.parse(response.body);
       var storyOrder = data;
 
@@ -69,6 +87,7 @@ module.exports = {
           }
         }
         console.log("Top Stories Updated");
+        console.log(topStories[0]);
       });
     });
   }
