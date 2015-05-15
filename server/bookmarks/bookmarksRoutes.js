@@ -5,4 +5,5 @@ module.exports = function (app, router) {
   router
     .post('/addBookmark', bookmarksController.addBookmark)
     .post('/removeBookmark', bookmarksController.removeBookmark)
+    .post('/getBookmarks', bookmarksController.getBookmarks)
 }

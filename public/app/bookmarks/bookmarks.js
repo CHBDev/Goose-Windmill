@@ -1,20 +1,19 @@
 angular.module('hack.bookmarks', [])
 
-.controller('BookmarksController', function ($scope, $window, Links, Followers, Auth) {
+.controller('BookmarksController', function ($scope, $window, Links, Followers, Bookmarks, Auth) {
   $scope.currentBookmarks = Bookmarks.bookmarks;
   $scope.loggedIn = Auth.isAuth();
-  // $scope.stories = Links.personalStories;
-  // $scope.users = Followers.following;
-  // $scope.perPage = 30;
-  // $scope.index = $scope.perPage;
+  $scope.stories = Links.bookmarkStories;
+  $scope.perPage = 30;
+  $scope.index = $scope.perPage;
+  $scope.currentlyFollowing = Followers.following;
 
-  var init = function(){
-  
+  $scope.addUser = function(username) {
+    Followers.addFollower(username);
   };
   
-  // var fetchUsers = function(){
-  //   Links.getBookmarkStories($scope.users);
-  // };
-  
+  var init = function () {
+    Links.getBookmarks();
+  };
   init();
 });

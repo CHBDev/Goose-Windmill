@@ -29,5 +29,16 @@ module.exports = {
         response.status(400).send(err);
       }
     });
+  },
+  getBookmarks: function(request, response, next) {
+    var username = request.body.username;
+    Bookmark.prototype.getBookmarks(username, function(err,results){
+      if(!err){
+        console.log(results);
+        response.status(200).json(results);
+      } else {
+        response.status(500).send(err);
+      }
+    });
   }
 };

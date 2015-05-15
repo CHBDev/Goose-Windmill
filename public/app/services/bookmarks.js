@@ -13,14 +13,16 @@ angular.module('hack.bookmarkService', [])
   var user = $window.localStorage.getItem('com.hack');
 
   var addBookmark = function(story){
+
     var article = {
+      points: story.points,
       url: story.url,
       title: story.title,
       author: story.author,
       created_at: story.created_at,
-      objectID: story.objectID
+      objectID: story.objectID,
+      num_comments: story.num_comments
     };
-
     var data = {
       username: user,
       bookmark: article
@@ -39,10 +41,6 @@ angular.module('hack.bookmarkService', [])
 
   var removeBookmark = function(story){
     var article = {
-      url: story.url,
-      title: story.title,
-      author: story.author,
-      created_at: story.created_at,
       objectID: story.objectID
     };
 
