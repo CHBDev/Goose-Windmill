@@ -7,7 +7,6 @@ angular.module('hack.topStories', [])
   $scope.index = $scope.perPage;
   $scope.loggedIn = Auth.isAuth();
   $scope.currentlyFollowing = Followers.following;
-  $scope.currentBookmarks = Bookmarks.bookmarks;
 
   $scope.getData = function() {
     Links.getTopStories();
@@ -18,16 +17,7 @@ angular.module('hack.topStories', [])
   };
 
   $scope.isBookmark = function(story) {
-    console.log('isBookmark was called');
-    var link = {
-      url: story.url,
-      title: story.title,
-      author: story.author,
-      created_at: story.created_at,
-      objectID: story.objectID
-    };
-    console.log($scope.currentBookmarks);
-    if (!$scope.currentBookmarks || $scope.currentBookmarks.indexOf(link) === -1) {
+    if (Bookmarks.bookmarks.indexOf(story.objectID) === -1) {
       return false;
     } else {
       return true;

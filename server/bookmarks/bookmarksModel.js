@@ -31,16 +31,13 @@ var BookmarksSchema = mongoose.Schema({
 var Bookmark = mongoose.model('bookmarks', BookmarksSchema);
 
 //Update & Add Bookmarks incomplete
-Bookmark.prototype.updateBookmarks = function (bookmarks, username, callback){
-  //if bookmark exists, update with userID
-  //else call addBookmark method
-  var lastBookmark = bookmarks[bookmarks.length-1];
+Bookmark.prototype.addBookmark = function (bookmark, username, callback){
   //try to find the most recently clicked article in db by its ID
-  Bookmark.findOne({objectID: lastBookmark.objectID}, 'usernames', function (err, result) {
+  Bookmark.findOne({objectID: bookmark.objectID}, 'usernames', function (err, result) {
     var allUsernames;
     if (err) console.log(err);
     //if article is not in db 
-    if (!result) {s
+    if (!result) {
       allUsernames = [];
     } else {
     //if article in db, then allUsernames is the result.usernames array
@@ -50,12 +47,31 @@ Bookmark.prototype.updateBookmarks = function (bookmarks, username, callback){
     //regardless, add username to array, and upsert the article
     allUsernames.push(username);
     console.log(allUsernames);
-    Bookmark.update({objectID: lastBookmark.objectID}, 
-      {title: lastBookmark.title, 
-      url: lastBookmark.url, 
-      author: lastBookmark.author, 
-      created_at: lastBookmark.created_at,
-      objectID: lastBookmark.objectID, 
+    Bookmark.update({objectID: bookmark.objectID}, 
+      {title: bookmark.title, 
+      url: bookmark.url, 
+      author: bookmark.author, 
+      created_at: bookmark.created_at,
+      objectID: bookmark.objectID, 
+      usernames: allUsernames}, {upsert: true}, function(err, result) {
+        if (err) console.log(err);
+    });
+  })
+};
+
+Bookmark.prototype.removeBookmark = function (bookmark, username, callback) {
+  Bookmark.findOne({objectID: bookmark.objectID}, 'usernames', function (err, result) {
+    if (err) console.log(err);
+    var allUsernames = result.usernames;
+    var splicePoint = allUsernames.indexOf(username);
+    allUsernames.splice(splicePoint, 1);
+    console.log(allUsernames);
+    Bookmark.update({objectID: bookmark.objectID}, 
+      {title: bookmark.title, 
+      url: bookmark.url, 
+      author: bookmark.author, 
+      created_at: bookmark.created_at,
+      objectID: bookmark.objectID, 
       usernames: allUsernames}, {upsert: true}, function(err, result) {
         if (err) console.log(err);
     });

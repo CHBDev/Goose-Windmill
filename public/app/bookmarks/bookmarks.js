@@ -8,13 +8,13 @@ angular.module('hack.bookmarks', [])
   // $scope.perPage = 30;
   // $scope.index = $scope.perPage;
 
-  // var init = function(){
-  //   fetchUsers();
-  // };
+  var init = function(){
+  
+  };
   
   // var fetchUsers = function(){
   //   Links.getBookmarkStories($scope.users);
   // };
   
-  // init();
+  init();
 });

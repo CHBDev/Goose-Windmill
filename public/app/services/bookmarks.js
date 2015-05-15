@@ -10,45 +10,7 @@ angular.module('hack.bookmarkService', [])
 
 .factory('Bookmarks',  function($http, $window) {
   var bookmarks = [];
-
-  var updateBookmarks = function(){
-   var user = $window.localStorage.getItem('com.hack');
-   var temp = localStorageBookmarks();
-  
-    if(!!user){
-      var data = {
-        username: user,
-        bookmarks: '['+temp.slice("undefined,".length)+']'
-      };
-
-      $http({
-        method: 'POST',
-        //TODO: create server route for bookmarks
-        url: '/api/bookmarks/updateBookmarks',
-        data: data
-      });
-    }
-  };
-
-  //to add bookmark:
-  //add storyID to array on User object
-  //check bookmark database and upsert object into bookmark database
-
-  var localStorageBookmarks = function(){
-    return $window.localStorage.getItem('hfBookmarks');
-  };
-
-  var localToArr = function(){
-    if(!localStorageBookmarks()){
-      // If the person is a new visitor, set pg and sama as the default
-      // people to follow. Kinda like Tom on MySpace. Except less creepy.
-      $window.localStorage.setItem('hfBookmarks', '');
-    }
-    var bms = localStorageBookmarks().split(',');
-
-    bookmarks.splice(0, bookmarks.length);
-    bookmarks.push.apply(bookmarks, bms);
-  };
+  var user = $window.localStorage.getItem('com.hack');
 
   var addBookmark = function(story){
     var article = {
@@ -58,46 +20,50 @@ angular.module('hack.bookmarkService', [])
       created_at: story.created_at,
       objectID: story.objectID
     };
-    article = JSON.stringify(article);
-    // push article into bookmarks
-    // json.Stringify bookmarks
-    // set that to be localBookmarks
-    var localBookmarks = localStorageBookmarks();
 
-    if (!localBookmarks.includes(article) && bookmarks.indexOf(article) === -1) {
-      localBookmarks += ',' + article
-      $window.localStorage.setItem('hfBookmarks', localBookmarks);
-      bookmarks.push(article);
+    var data = {
+      username: user,
+      bookmark: article
+    };
+
+   $http({
+      method: 'POST',
+      url: '/api/bookmarks/addBookmark',
+      data: data
+    });
+
+    if (bookmarks.indexOf(article.objectID) === -1) {
+      bookmarks.push(article.objectID);
     }
-
-    // makes call to database to mirror our changes
-     updateBookmarks();
   };
 
   var removeBookmark = function(story){
-    // var localBookmarks = localStorageBookmarks();
+    var article = {
+      url: story.url,
+      title: story.title,
+      author: story.author,
+      created_at: story.created_at,
+      objectID: story.objectID
+    };
 
-    // if (localBookmarks.includes(story) && bookmarks.indexOf(story) > -1) {
-    //   following.splice(bookmarks.indexOf(story), 1);
+    var data = {
+      username: user,
+      bookmark: article
+    };
 
-    //   localBookmarks = localBookmarks.split(',');
-    //   localBookmarks.splice(localBookmarks.indexOf(story), 1).join(',');
-    //   $window.localStorage.setItem('hfBookmarks', localBookmarks);
-    // }
+   $http({
+      method: 'POST',
+      url: '/api/bookmarks/removeBookmark',
+      data: data
+    });
 
-    // makes call to database to mirror our changes
-    updateBookmarks();
+    var splicePoint = bookmarks.indexOf(article.objectID);
+    bookmarks.splice(splicePoint, 1);
   };
-
-  var init = function(){
-    localToArr();
-  };
-
-  init();
 
   return {
+    bookmarks: bookmarks,
     addBookmark: addBookmark,
-    removeBookmark: removeBookmark,
-    updateBookmarks: updateBookmarks
+    removeBookmark: removeBookmark
   }
 });

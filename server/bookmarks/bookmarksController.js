@@ -1,17 +1,31 @@
 var Bookmark = require('./bookmarksModel.js');
 
 module.exports = {
-   updateBookmarks: function(request, response, next) {
-    //console.log('in server!!!', request.body.username, request.body.bookmarks);
+   addBookmark: function(request, response, next) {
+   // console.log('in server!!!', request.body);
     var username = request.body.username;
-    var bookmarks = JSON.parse(request.body.bookmarks);
-
-    Bookmark.prototype.updateBookmarks(bookmarks, username, function(err, results){
+    var bookmark = request.body.bookmark;
+    
+    Bookmark.prototype.addBookmark(bookmark, username, function(err, results){
       if(!err){
-        console.log('Bookmark data updated');
+        console.log('Bookmark data added');
         response.status(200).end();
       } else {
-        console.log('Bookmark data update ERROR');
+        console.log('Bookmark data add ERROR');
+        response.status(400).send(err);
+      }
+    });
+  },
+  removeBookmark: function(request, response, next) {
+     var username = request.body.username;
+     var bookmark = request.body.bookmark;
+     
+     Bookmark.prototype.removeBookmark(bookmark, username, function(err, results){
+      if(!err){
+        console.log('Bookmark data removed');
+        response.status(200).end();
+      } else {
+        console.log('Bookmark data remove ERROR');
         response.status(400).send(err);
       }
     });
