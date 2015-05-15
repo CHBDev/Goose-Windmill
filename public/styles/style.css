@@ -356,15 +356,15 @@ html .followed-user{
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  display: inline-block;
   border-radius: 0;
   border: 0px solid white;
   font-size: 1.15em;
-  display: inline-block;
+  font-weight: bold;
   margin: 1px;
-  padding: .24em .8em .24em .8em;
-  background-color: #404040;
-  color: #FFA500;
-  width: 100%;
+  padding: .2px .5em .2px .5em;
+  background-color: #FFA500;
+  color: #404040;
 }
 
 .auth-content input{
@@ -504,6 +504,36 @@ html .followed-user{
 .source-url {
   opacity: 0.4;
   font-size: .9em;
+}
+
+.filterBar{
+  display: inline-block;
+  width: 100%;
+  background-color: #404040;
+  padding: 2px;
+}
+
+.filterBarTitle{
+  display: inline-block;
+  font-family: helvetica, arial, sans-serif;
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #FFA500;
+}
+
+html .filterBar input {
+  font-family: helvetica, arial, sans-serif;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  display: inline-block;
+  border-radius: 0;
+  border: 0px solid white;
+  font-size: 1.15em;
+  margin: 2px;
+  padding: .15em 1em .15em 1em;
+  background-color: #FFA500;
+  color: #404040;
 }
 
 .more-button {
