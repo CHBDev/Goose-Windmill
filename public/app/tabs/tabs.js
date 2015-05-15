@@ -13,7 +13,7 @@ angular.module('hack.tabs', [])
 
   $scope.changeTab = function(newTab){
     $scope.currentTab = newTab;
-    $location.path(newTab );
+    $location.path(newTab);
   };
 
   $scope.refresh = function(){

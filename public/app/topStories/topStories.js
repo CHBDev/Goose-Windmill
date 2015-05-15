@@ -1,12 +1,11 @@
 angular.module('hack.topStories', [])
 
-.controller('TopStoriesController', function ($scope, $window, Links, Followers, Bookmarks) {
+.controller('TopStoriesController', function ($scope, $window, Links, Followers, Bookmarks, Auth) {
   angular.extend($scope, Links);
-  $scope.bookmarked = false;
   $scope.stories = Links.topStories;
   $scope.perPage = 30;
   $scope.index = $scope.perPage;
-
+  $scope.loggedIn = Auth.isAuth();
   $scope.currentlyFollowing = Followers.following;
 
   $scope.getData = function() {
@@ -17,13 +16,20 @@ angular.module('hack.topStories', [])
     Followers.addFollower(username);
   };
 
+  $scope.isBookmark = function(story) {
+    if (Bookmarks.bookmarks.indexOf(story.objectID) === -1) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
   $scope.addBookmark = function(story) {
-    $scope.bookmarked = true;
     Bookmarks.addBookmark(story);
   };
 
   $scope.removeBookmark = function(story) {
-    $scope.bookmarked = false;
+    Bookmarks.removeBookmark(story);
   };
 
   $scope.getData();
