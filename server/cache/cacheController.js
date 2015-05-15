@@ -9,6 +9,17 @@ module.exports = {
           response.status(500).send(err);
         }
     });
+  },
+
+  topStoriesWithKeyword: function(request, response){
+    console.log("THADDEUS IS A NAVY SEAL " + request.query.keyword)
+  	Cache.getTopStoriesWithKeyword(request.query.keyword, function(err,results){
+        if(!err){
+          response.status(200).json(results);
+        }else{
+          response.status(500).send(err);
+        }
+    });
   }
 };
 

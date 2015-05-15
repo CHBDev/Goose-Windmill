@@ -1,5 +1,6 @@
 angular.module('hack', [
   'hack.topStories',
+  'topStoriesWithKeyword',
   'hack.personal',
   'hack.bookmarks',
   'hack.bookmarkService',
@@ -25,6 +26,10 @@ angular.module('hack', [
     .when('/bookmarks', {
       templateUrl: 'app/bookmarks/bookmarks.html',
       controller: 'BookmarksController'
+    })
+    .when('/keyword', {
+      templateUrl: 'app/topStoriesWithKeyword/topStoriesWithKeyword.html',
+      controller: 'TopStoriesWithKeywordController'
     })
     .otherwise({
       redirectTo: '/'

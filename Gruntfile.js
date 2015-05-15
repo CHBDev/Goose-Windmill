@@ -13,6 +13,7 @@ module.exports = function(grunt) {
               'public/app/bookmarks/bookmarks.js',
               'public/app/tabs/tabs.js',
               'public/app/topStories/topStories.js',
+              'public/app/topStoriesWithKeyword/topStoriesWithKeyword.js',
               'public/app/app.js'],
           'public/dist/production.css': ['public/styles/*.css']
         },
