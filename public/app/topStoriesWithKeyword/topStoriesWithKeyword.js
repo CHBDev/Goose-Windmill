@@ -1,5 +1,5 @@
 
-angular.module('topStoriesWithKeyword', [])
+angular.module('hack.topStoriesWithKeyword', [])
 
 .controller('TopStoriesWithKeywordController', function ($scope, $window, Links, Followers) {
   angular.extend($scope, Links);

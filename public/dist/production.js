@@ -516,7 +516,7 @@ angular.module('hack.topStories', [])
 
 
 
-angular.module('topStoriesWithKeyword', [])
+angular.module('hack.topStoriesWithKeyword', [])
 
 .controller('TopStoriesWithKeywordController', ["$scope", "$window", "Links", "Followers", function ($scope, $window, Links, Followers) {
   angular.extend($scope, Links);
