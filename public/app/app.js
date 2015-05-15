@@ -1,6 +1,6 @@
 angular.module('hack', [
   'hack.topStories',
-  'topStoriesWithKeyword',
+  'hack.topStoriesWithKeyword',
   'hack.personal',
   'hack.bookmarks',
   'hack.bookmarkService',

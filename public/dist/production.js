@@ -494,6 +494,7 @@ angular.module('hack.tabs', [])
   $scope.refresh = function(){
     Links.getTopStories();
     Links.getPersonalStories(Followers.following);
+    //technically this needs bookmarks and maybe filters here
     $scope.angle += 360;
   };
 }]);
@@ -530,9 +531,20 @@ angular.module('hack.topStories', [])
 }]);
 
 
+
+angular.module('hack.topStoriesWithKeyword', [])
+
+.controller('TopStoriesWithKeywordController', ["$scope", "$window", "Links", "Followers", "Bookmarks", function ($scope, $window, Links, Followers, Bookmarks) {
+
+}]);
+
+
+
+
+
 angular.module('hack', [
   'hack.topStories',
-  'topStoriesWithKeyword',
+  'hack.topStoriesWithKeyword',
   'hack.personal',
   'hack.bookmarks',
   'hack.bookmarkService',
