@@ -1,3 +1,9 @@
+#Hacker News UI Reskin
+This divergent fork of Goose-Windmill, takes the original UI overhall, and replaces its client code with a rearchitected client that is responsive on all devices and all resolutions.
+
+
+//ORIGINAL PROJECT README
+
 [![Stories in Ready](https://badge.waffle.io/goose-windmill/goose-windmill.png?label=ready&title=Ready)](https://waffle.io/goose-windmill/goose-windmill)
 # Goose-Windmill 
 
